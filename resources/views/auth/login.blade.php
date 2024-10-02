@@ -14,9 +14,7 @@
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            <header class="p-6">
-                <h1 class="text-2xl font-bold text-center">Log in</h1>
-            </header>
+            <x-guest-header></x-guest-header>
             <div>
                 <x-label for="email" value="{{ __('Email') }}" />
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
