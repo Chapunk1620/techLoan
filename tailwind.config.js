@@ -2,6 +2,10 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 
+
+const plugin = require('tailwindcss/plugin');
+const forms = require('@tailwindcss/forms');
+const typography = require('@tailwindcss/typography');
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
@@ -16,8 +20,23 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            backgroundImage: {'custom-gradient': 'linear-gradient(to right, #4F46E5, #9D4EDD)',
+            },
         },
     },
 
-    plugins: [forms, typography],
+    plugins: [
+        forms,
+        typography,
+        plugin(function({ addUtilities }) {
+        const newUtilities = {
+            '.glass-effect': {
+            backdropFilter: 'blur(2.5px)',
+            WebkitBackdropFilter: 'blur(3.7px)',
+            },
+        };
+
+        addUtilities(newUtilities, ['responsive', 'hover']);
+        }),
+    ],
 };

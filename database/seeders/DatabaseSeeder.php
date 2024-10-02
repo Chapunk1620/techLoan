@@ -14,10 +14,13 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->withPersonalTeam()->create();
+        $quantity = 10000;
+        for ($i = 60; $i < $quantity; $i++){
 
-        User::factory()->withPersonalTeam()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+            User::factory()->withPersonalTeam()->create([
+                'name' => 'Test User'. $i ,
+                'email' => 'test@example.com' . $i,
+            ]);
+        }
     }
 }
