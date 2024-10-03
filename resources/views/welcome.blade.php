@@ -3,9 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <x-tab-icon></x-tab-icon>
         <title>TechLoan</title>
-
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -21,7 +20,7 @@
                         <div class="flex lg:justify-center lg:col-start-2">                           
                         </div>
                         @if (Route::has('login'))
-                        <nav class="fixed top-0 left-0 right-0 flex justify-end gap-3 bg-white/0 p-4 z-10 shadow-sm glass-effect">
+                        <nav class="fixed top-0 left-0 right-0 flex justify-end gap-3 bg-white/ p-4 z-10 shadow-sm glass-effect">
                             @auth
                                 <a
                                     href="{{ url('/dashboard') }}"
@@ -67,7 +66,7 @@
                             </div>
                         </div>                                                        
                     </main>
-                    <footer class="py-16 text-center text-sm text-black italic dark:text-white/70">
+                    <footer id="footer" class="py-16 text-center text-sm text-black italic dark:text-white/70 translate-y-full transition-transform duration-700 ease-in-out opacity-0">
                         Hayakayawa Electronics (Phils.) Corp.
                     </footer>
                 </div>
