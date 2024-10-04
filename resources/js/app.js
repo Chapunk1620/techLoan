@@ -35,7 +35,6 @@ $(document).ready(function() {
         drawCallback: function(settings) {
             $('.dataTables_paginate').addClass('p-4');
             $('.dataTables_length').addClass('p-4');
-            $('#dt-length-0').addClass('');
             // Hide the label
             $('label[for="dt-length-0"]').addClass('hidden')
         }
