@@ -30,23 +30,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //Table js
 $(document).ready(function() {
-    
     // Initialize DataTable
     var table = $('#postss-table').DataTable({
-        "processing": true,
-        "serverSide": true,
-        "ajax": "/dashboard/data", // Direct URL or route
-        "columns": [
-            { "data": "id" },
-            { "data": "id_borrower" },
-            { "data": "borrower_name" },
-            { "data": "item_key" },
-            { "data": "date" }, // Assuming date is in this column
-            { "data": "due_date" },
-            { "data": "status" },
-            { "data": "description" },
-            { "data": "it_approver" },
-            { "data": "it_receiver" }
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "/dashboard/data", // Your route to fetch data
+            data: function(d) {
+                d.month = $('#month-filter').val(); // Pass selected month
+                d.status = $('#status-filter').val(); // Pass selected status
+            }
+        },
+        columns: [
+            { data: "id" },
+            { data: "id_borrower" },
+            { data: "borrower_name" },
+            { data: "item_key" },
+            { data: "date" },
+            { data: "due_date" },
+            { data: "status" },
+            { data: "description" },
+            { data: "it_approver" },
+            { data: "it_receiver" }
         ],
         responsive: true,
         language: {
@@ -63,43 +68,9 @@ $(document).ready(function() {
         }
     });
 
-    // Custom filtering function for month
-    $.fn.dataTable.ext.search.push(
-        function(settings, data, dataIndex) {
-            var month = $('#month-filter').val();
-            var date = new Date(data[4]); // Assuming date is in the 5th column (index 4)
-            var monthFromTable = date.getMonth() + 1; // Get month as number (1-12)
-
-            if (month === "" || monthFromTable == month) {
-                return true;
-            }
-            return false;
-        }
-    );
-
-    // Custom filtering function for status
-    $.fn.dataTable.ext.search.push(
-        function(settings, data, dataIndex) {
-            var status = $('#status-filter').val();
-            var postStatus = data[6]; // Assuming status is in the 7th column (index 6)
-
-            if (status === "" || postStatus.includes(status)) {
-                return true;
-            }
-            return false;
-        }
-    );
-
-    // Event listener for month filter
-    $('#month-filter').on('change', function() {
-        table.draw();
-    });
-
-    // Event listener for status filter
-    $('#status-filter').on('change', function() {
-        table.draw();
+    // Trigger filtering when month or status is changed
+    $('#month-filter, #status-filter').on('change', function() {
+        table.ajax.reload(); // Reload table data based on new filter values
     });
 });
-
-
 //Table js end
