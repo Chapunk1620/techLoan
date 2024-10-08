@@ -6,6 +6,14 @@
     display: none;
 }
 /* page per entries */
-#dt-length-0{
+#dt-length-0, #dt-length-1 {
     width: 4rem;
+}
+#status-filter{
+    width: 5rem;
+    height: 2.4rem;
+}
+#month-filter{
+    height: 2.4rem;
+    width: 6rem;
 }

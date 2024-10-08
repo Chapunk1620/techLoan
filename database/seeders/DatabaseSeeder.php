@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->withPersonalTeam()->create();
-        $quantity = 10000;
+        $quantity = 100;
         for ($i = 60; $i < $quantity; $i++){
 
             User::factory()->withPersonalTeam()->create([

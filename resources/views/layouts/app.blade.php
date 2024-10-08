@@ -19,7 +19,7 @@
         <x-tab-icon></x-tab-icon>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+        
         <!-- Styles -->
         @livewireStyles
     </head>
