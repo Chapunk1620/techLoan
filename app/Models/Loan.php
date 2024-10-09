@@ -10,17 +10,7 @@ class Loan extends Model
     use HasFactory;
 
     protected $table = 'loans';
-    protected $fillable = [
-        'id_borrower',
-        'borrower_name',
-        'item_key',
-        'date',
-        'due_date',
-        'status',
-        'description',
-        'it_approver',
-        'it_receiver',
-    ];
+    protected $guarded = [];
 
     protected $casts = [
         'date' => 'date',

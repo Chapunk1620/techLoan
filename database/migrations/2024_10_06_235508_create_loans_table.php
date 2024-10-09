@@ -10,15 +10,15 @@ return new class extends Migration
     {
         Schema::create('loans', function (Blueprint $table) {
             $table->id();
-            $table->string('id_borrower');
-            $table->string('borrower_name');
-            $table->string('item_key');
-            $table->date('date');
-            $table->date('due_date');
-            $table->string('status');
+            $table->string('id_borrower')->nullable();
+            $table->string('borrower_name')->nullable();
+            $table->string('item_key')->nullable();
+            $table->date('date')->nullable();
+            $table->date('due_date')->nullable();
+            $table->string('status')->nullable();
             $table->text('description')->nullable();
-            $table->string('it_approver');
-            $table->string('it_receiver');
+            $table->string('it_approver')->nullable();
+            $table->string('it_receiver')->nullable();
             $table->timestamps();
 
             $table->foreign('item_key')->references('item_key')->on('items')->onDelete('cascade');

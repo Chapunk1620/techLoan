@@ -7,9 +7,9 @@ import 'datatables.net-dt/js/dataTables.dataTables.min.js';
 import 'datatables.net-editor/js/dataTables.editor.min.js';
 // import 'datatables.net-responsive-dt/css/responsive.dataTables.min.css';  // Responsive CSS
 // import 'datatables.net-responsive-dt/js/responsive.dataTables.min.js'; // If you use responsive
-
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '@fortawesome/fontawesome-free/js/all.min.js';
+import Swal from 'sweetalert2';
 
 //Landing footer animation
 document.addEventListener("DOMContentLoaded", function () {
@@ -59,7 +59,7 @@ $(document).ready(function() {
             searchPlaceholder: "Search..."
         },
         columnDefs: [
-            { targets: [5], orderable: false }  // Disable sorting for columns 5
+            { targets: [9], orderable: false }  // Disable sorting for columns 5
         ],
         drawCallback: function(settings) {
             $('.dataTables_paginate').addClass('p-4');
@@ -72,5 +72,37 @@ $(document).ready(function() {
     $('#month-filter, #status-filter').on('change', function() {
         table.ajax.reload(); // Reload table data based on new filter values
     });
+    // Add modal js
+    document.getElementById('openModal').onclick = function() {
+        const modal = document.getElementById('myModal');
+        const modalContent = document.getElementById('modalContent');
+        modal.classList.remove('hidden');
+        modalContent.classList.remove('scale-95', 'opacity-0');
+        modalContent.classList.add('scale-100', 'opacity-100');
+    }
+
+    document.getElementById('closeModal').onclick = function() {
+        const modal = document.getElementById('myModal');
+        const modalContent = document.getElementById('modalContent');
+        modalContent.classList.remove('scale-100', 'opacity-100');
+        modalContent.classList.add('scale-95', 'opacity-0');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300); // Match this time with the duration of the CSS transition
+    }
+
+    // Optional: Close the modal when clicking outside of it
+    window.onclick = function(event) {
+        const modal = document.getElementById('myModal');
+        if (event.target === modal) {
+            const modalContent = document.getElementById('modalContent');
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300); // Match this time with the duration of the CSS transition
+        }
+    }
+    // create a function for displaying a console log 
 });
 //Table js end

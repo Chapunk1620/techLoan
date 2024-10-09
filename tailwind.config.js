@@ -22,6 +22,8 @@ export default {
             },
             backgroundImage: {'custom-gradient': 'linear-gradient(to right, #4F46E5, #9D4EDD)',
             },
+            colors: {'custom-blues': '#579ed1',
+            },
         },
     },
 

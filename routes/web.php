@@ -15,3 +15,4 @@ Route::middleware([
     Route::get('/dashboard', [Loans::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard/data', [Loans::class, 'json']);
 });
+Route::post('/store', [Loans::class, 'store'])->name('loan.store');

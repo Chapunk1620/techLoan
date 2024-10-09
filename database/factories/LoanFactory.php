@@ -23,6 +23,7 @@ class LoanFactory extends Factory
             'due_date' => $due_date,
             'status' => $this->faker->randomElement(['pending', 'approved', 'returned', 'overdue']),
             'description' => $this->faker->optional()->sentence(),
+            'after_condition' => $this->faker->imageUrl(640, 480),
             'it_approver' => $this->faker->name(),
             'it_receiver' => $this->faker->name(),
         ];
