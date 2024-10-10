@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('item_key')->unique();
-            $table->string('item_type');
+            $table->string('item_type')->nullable();
             $table->text('attachment')->nullable();
-            $table->enum('status', ['active', 'inactive', 'pending'])->default('active');
+            $table->text('status')->nullable();
             $table->timestamps();
         });
     }

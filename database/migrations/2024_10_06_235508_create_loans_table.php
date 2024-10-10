@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('it_approver')->nullable();
             $table->string('it_receiver')->nullable();
+            $table->string('after_condition')->nullable();
             $table->timestamps();
 
             $table->foreign('item_key')->references('item_key')->on('items')->onDelete('cascade');

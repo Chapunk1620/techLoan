@@ -16,3 +16,6 @@ Route::middleware([
     Route::get('/dashboard/data', [Loans::class, 'json']);
 });
 Route::post('/store', [Loans::class, 'store'])->name('loan.store');
+Route::delete('/dashboard/delete/{id}', [Loans::class, 'destroy'])->name('loans.destroy');
+Route::put('/dashboard/update/{id}', [Loans::class, 'update'])->name('loans.update');
+Route::get('/dashboard/edit/{id}', [Loans::class, 'edit'])->name('loans.edit');

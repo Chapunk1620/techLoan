@@ -45,12 +45,12 @@ class Loans extends Controller
         ]);
 
         // Check if the item_key exists in the items table using the Item model
-        $itemExists = ModelsItem::where('item_key', $validatedData['item-key'])->exists();
+        // $itemExists = Item::where('item_key', $validatedData['item-key'])->exists();
 
-        if (!$itemExists) {
-            // Redirect back with error if item_key does not exist
-            return redirect()->back()->withErrors(['item-key' => 'The specified item key does not exist in the items table.'])->withInput();
-        }
+        // if (!$itemExists) {
+        //     // Redirect back with error if item_key does not exist
+        //     return redirect()->back()->withErrors(['item-key' => 'The specified item key does not exist in the items table.'])->withInput();
+        // }
 
         // Create a new Loan instance with validated data
         Loan::create([
@@ -66,4 +66,47 @@ class Loans extends Controller
         // Return a success response
         return redirect()->route('dashboard')->with('success', 'Record submitted successfully!');
     }
+    public function destroy($id) {
+        $loan = Loan::findOrFail($id);
+        $loan->delete();
+
+        return response()->json(['success' => 'Record deleted successfully.']);
+    }
+    public function update(Request $request, $id) {
+        // Validate incoming request data
+        $validatedData = $request->validate([
+            'borrower-id' => 'string',
+            'item-key' => 'string|max:255',
+            'due-date' => 'date',
+            'status' => 'string',
+            'description' => 'string',
+            'it-receiver' => 'string|max:255',
+        ]);
+
+        try {
+            // Find the record and update it
+            $loan = Loan::findOrFail($id);
+            $loan->id_borrower = $validatedData['borrower-id'];
+            $loan->item_key = $validatedData['item-key'];
+            $loan->due_date = $validatedData['due-date'];
+            $loan->status = $validatedData['status'];
+            $loan->description = $validatedData['description'];
+            $loan->it_receiver = $validatedData['it-receiver'];
+            $loan->save();
+
+            return response()->json(['success' => 'Record updated successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Could not update the record.'], 500);
+        }
+    }
+    public function edit($id)
+    {
+        // Find the loan record by ID
+        $loan = Loan::findOrFail($id);
+
+        // Return the loan data as JSON
+        return response()->json($loan);
+    }
+
+
 }

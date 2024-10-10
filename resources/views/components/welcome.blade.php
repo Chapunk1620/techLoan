@@ -27,7 +27,7 @@
                 </select>
             </div>
             <!-- Button to open the modal -->
-            <div class="bg-blue-400 rounded-md px-3 hover:bg-custom-blues hover:-translate-y-1">
+            <div class="bg-blue-400 text-white rounded-md px-3 hover:bg-custom-blues hover:-translate-y-1">
                 <button id="openModal" class="p-2">
                     <i class="fa-solid fa-plus"></i>
                 </button>
@@ -39,28 +39,26 @@
                 <tr>
                     <th>ID</th>
                     <th>Borrower ID</th>
-                    <th>Borrower Name</th>
                     <th>Item Key</th>
-                    <th>Date</th>
                     <th>Due Date</th>
                     <th>Status</th>
                     <th>Description</th>
                     <th>IT Approver</th>
                     <th>IT Receiver</th>
+                    <th></th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
                     <th>ID</th>
                     <th>Borrower ID</th>
-                    <th>Borrower Name</th>
                     <th>Item Key</th>
-                    <th>Date</th>
                     <th>Due Date</th>
                     <th>Status</th>
                     <th>Description</th>
                     <th>IT Approver</th>
                     <th>IT Receiver</th>
+                    <th></th>
                 </tr>
             </tfoot>
         </table>
@@ -111,6 +109,44 @@
             <!-- End of Form -->
         </div>
     </div>
-    
+<!-- Edit Modal -->
+<div class="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 hidden" id="editModal">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg mx-4 md:max-w-md h-[80%] overflow-y-auto">
+        <h2 class="text-lg font-semibold mb-4">Edit Record</h2>
+        <form id="editForm">
+            <input type="hidden" id="row-id" name="row-id">
+            <div class="mb-4">
+                <label for="borrower-id" class="block text-sm font-medium text-gray-700">Borrower ID</label>
+                <input type="text" id="borrower-id" name="borrower-id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-400" disabled>
+            </div>
+            <div class="mb-4">
+                <label for="item-key" class="block text-sm font-medium text-gray-700">Item Key</label>
+                <input type="text" id="item-key" name="item-key" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-400" disabled>
+            </div>
+            <div class="mb-4">
+                <label for="due-date" class="block text-sm font-medium text-gray-700">Due Date</label>
+                <input type="date" id="due-date" name="due-date" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-400" disabled>
+            </div>
+            <div class="mb-4">
+                <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                <input type="text" id="status" name="status" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-400" disabled>
+            </div>
+            <div class="mb-4">
+                <label for="description" class="block text-sm font-medium text-gray-700">Description(Reason)</label>
+                <textarea id="description" name="description" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-400" disabled></textarea>
+            </div>
+            <div class="mb-4">
+                <label for="it-receiver" class="block text-sm font-medium text-gray-700">IT Receiver</label>
+                <input type="text" id="it-receiver" name="it-receiver" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+            </div>
+            <div class="flex gap-2">
+                <button type="button" class="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5" id="saveChanges">Save Changes</button>
+                <button type="button" id="closeModals" class="text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 font-medium rounded-lg px-5 py-2.5">Close</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
     
 </div>
