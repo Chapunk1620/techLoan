@@ -21,8 +21,8 @@
                 </select>
                 <select id="status-filter" class="p-2 border rounded-lg">
                     <option value="">Status</option>
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Returned">Returned</option>
                     <!-- Add more statuses as needed -->
                 </select>
             </div>
@@ -95,7 +95,7 @@
                         <label for="return-date" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Return Date</label>
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="text" name="it-approver" id="it-approver" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                        <input type="text" name="it-approver" id="it-approver" value="{{ Auth::user()->name }}" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                         <label for="it-approver" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">IT Approver</label>
                     </div>
                 </div>
@@ -117,27 +117,27 @@
             <input type="hidden" id="row-id" name="row-id">
             <div class="mb-4">
                 <label for="borrower-id" class="block text-sm font-medium text-gray-700">Borrower ID</label>
-                <input type="text" id="borrower-id" name="borrower-id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-400" disabled>
+                <input type="text" id="borrower-id" name="borrower-id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500">
             </div>
             <div class="mb-4">
                 <label for="item-key" class="block text-sm font-medium text-gray-700">Item Key</label>
-                <input type="text" id="item-key" name="item-key" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-400" disabled>
+                <input type="text" id="item-key" name="item-key" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500">
             </div>
             <div class="mb-4">
                 <label for="due-date" class="block text-sm font-medium text-gray-700">Due Date</label>
-                <input type="date" id="due-date" name="due-date" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-400" disabled>
+                <input type="datetime-local" id="due-date" name="due-date" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500">
             </div>
             <div class="mb-4">
                 <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-                <input type="text" id="status" name="status" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-400" disabled>
+                <input type="text" id="status" name="status" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500">
             </div>
             <div class="mb-4">
                 <label for="description" class="block text-sm font-medium text-gray-700">Description(Reason)</label>
-                <textarea id="description" name="description" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-400" disabled></textarea>
+                <textarea id="description" name="description" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500"></textarea>
             </div>
             <div class="mb-4">
                 <label for="it-receiver" class="block text-sm font-medium text-gray-700">IT Receiver</label>
-                <input type="text" id="it-receiver" name="it-receiver" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                <input type="text" id="it-receiver" name="it-receiver" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500">
             </div>
             <div class="flex gap-2">
                 <button type="button" class="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5" id="saveChanges">Save Changes</button>
@@ -146,7 +146,9 @@
         </form>
     </div>
 </div>
-
-
-    
+@if ($errors->any())
+    <script>
+        alert('{{ $errors->first() }}');
+    </script>
+@endif
 </div>

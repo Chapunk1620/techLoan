@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\Models\Loan;
-use App\Models\Item as ModelsItem;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+
+use function Laravel\Prompts\alert;
 
 class Loans extends Controller
 {
@@ -16,22 +18,20 @@ class Loans extends Controller
     public function json(Request $request)
     {
         // Get base query
-    $query = Loan::query();
-
-    // Apply month filter if selected
-    if ($request->has('month') && !empty($request->month)) {
-        $query->whereMonth('date', $request->month); // Assuming 'date' is the field you want to filter by
+        $query = Loan::query();
+        // Apply month filter if selected
+        if ($request->has('month') && !empty($request->month)) {
+            $query->whereMonth('date', $request->month); // Assuming 'date' is the field you want to filter by
+        }
+        // Apply status filter if selected
+        if ($request->has('status') && !empty($request->status)) {
+            $query->where('status', $request->status);
+        }
+        // Return data to DataTables with server-side processing
+        return DataTables::of($query)
+            ->make(true);
     }
 
-    // Apply status filter if selected
-    if ($request->has('status') && !empty($request->status)) {
-        $query->where('status', $request->status);
-    }
-
-    // Return data to DataTables with server-side processing
-    return DataTables::of($query)
-        ->make(true);
-    }
     public function store(Request $request)
     {
         // Validate the incoming request data
@@ -45,12 +45,12 @@ class Loans extends Controller
         ]);
 
         // Check if the item_key exists in the items table using the Item model
-        // $itemExists = Item::where('item_key', $validatedData['item-key'])->exists();
+        $itemExists = Item::where('item_key', $validatedData['item-key'])->exists();
 
-        // if (!$itemExists) {
-        //     // Redirect back with error if item_key does not exist
-        //     return redirect()->back()->withErrors(['item-key' => 'The specified item key does not exist in the items table.'])->withInput();
-        // }
+        if (!$itemExists) {
+            // Redirect back with error if item_key does not exist
+            return redirect()->back()->withErrors(['item-key' => 'The specified item key does not exist in the items list.'])->withInput();
+        }
 
         // Create a new Loan instance with validated data
         Loan::create([
@@ -60,12 +60,14 @@ class Loans extends Controller
             'due_date' => $validatedData['return-date'],
             'it_approver' => $validatedData['it-approver'],
             'description' => $validatedData['description'],
+            'status' => 'Pending',
             // Any other fields as needed
         ]);
 
         // Return a success response
         return redirect()->route('dashboard')->with('success', 'Record submitted successfully!');
     }
+
     public function destroy($id) {
         $loan = Loan::findOrFail($id);
         $loan->delete();
@@ -77,12 +79,11 @@ class Loans extends Controller
         $validatedData = $request->validate([
             'borrower-id' => 'string',
             'item-key' => 'string|max:255',
-            'due-date' => 'date',
+            'due-date' => 'date_format:Y-m-d\TH:i', // Use date format for datetime-local input
             'status' => 'string',
             'description' => 'string',
             'it-receiver' => 'string|max:255',
         ]);
-
         try {
             // Find the record and update it
             $loan = Loan::findOrFail($id);
@@ -107,6 +108,4 @@ class Loans extends Controller
         // Return the loan data as JSON
         return response()->json($loan);
     }
-
-
 }

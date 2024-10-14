@@ -13,8 +13,8 @@ return new class extends Migration
             $table->string('id_borrower')->nullable();
             $table->string('borrower_name')->nullable();
             $table->string('item_key')->nullable();
-            $table->date('date')->nullable();
-            $table->date('due_date')->nullable();
+            $table->datetime('date')->nullable();
+            $table->datetime('due_date')->nullable();
             $table->string('status')->nullable();
             $table->text('description')->nullable();
             $table->string('it_approver')->nullable();

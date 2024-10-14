@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('item_type')->nullable();
             $table->text('attachment')->nullable();
             $table->text('status')->nullable();
+            $table->datetime('date_arrival')->nullable(); // Adding date_arrival field
             $table->timestamps();
         });
     }
