@@ -77,21 +77,21 @@ class Loans extends Controller
     public function update(Request $request, $id) {
         // Validate incoming request data
         $validatedData = $request->validate([
-            'borrower-id' => 'string',
-            'item-key' => 'string|max:255',
-            'due-date' => 'date_format:Y-m-d\TH:i', // Use date format for datetime-local input
+            // 'borrower-id' => 'string',
+            // 'item-key' => 'string|max:255',
+            // 'due-date' => 'date_format:Y-m-d\TH:i', // Use date format for datetime-local input
+            // 'description' => 'string',
             'status' => 'string',
-            'description' => 'string',
             'it-receiver' => 'string|max:255',
         ]);
         try {
             // Find the record and update it
             $loan = Loan::findOrFail($id);
-            $loan->id_borrower = $validatedData['borrower-id'];
-            $loan->item_key = $validatedData['item-key'];
-            $loan->due_date = $validatedData['due-date'];
+            // $loan->id_borrower = $validatedData['borrower-id'];
+            // $loan->item_key = $validatedData['item-key'];
+            // $loan->due_date = $validatedData['due-date'];
+            // $loan->description = $validatedData['description'];
             $loan->status = $validatedData['status'];
-            $loan->description = $validatedData['description'];
             $loan->it_receiver = $validatedData['it-receiver'];
             $loan->save();
 

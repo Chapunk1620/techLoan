@@ -12,6 +12,7 @@ import '@fortawesome/fontawesome-free/js/all.min.js';
 import Swal from 'sweetalert2';
 
 
+
 //Landing footer animation
 document.addEventListener("DOMContentLoaded", function () {
     const footer = document.getElementById('footer');
@@ -28,10 +29,8 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(footer);
 });
 //Landing footer animation end
-
 //Table js
 $(document).ready(function() {
-    // Initialize DataTable
     var table = $('#postss-table').DataTable({
         processing: true,
         serverSide: true,
@@ -47,24 +46,27 @@ $(document).ready(function() {
             { data: "id" },
             { data: "id_borrower" },
             { data: "item_key" },
-            {data: "due_date"},
+            { data: "due_date" },
             { data: "status" },
             { data: "description" },
             { data: "it_approver" },
             { data: "it_receiver" },
-            { 
+            {
                 data: null,
                 render: function(data, type, row) {
                     return '<button class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 edit-row" data-id="' + row.id + '"><i class="fa-solid fa-edit"></i></button>';
                 }
             },
-            { 
+            {
                 data: null,
                 render: function(data, type, row) {
                     return '<button class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700 delete-row" data-id="' + row.id + '"><i class="fa-solid fa-trash"></i></button>';
                 }
             },
         ],
+        createdRow: function(row, data, dataIndex) {
+            $(row).find('td').addClass('px-4 py-2 text-sm');
+        },
         language: {
             search: "_INPUT_",
             searchPlaceholder: "Search..."
@@ -259,3 +261,33 @@ $(document).ready(function() {
     });
 });
 //Table js end
+//start dashboard side left drawer
+const drawerWrapper = document.getElementById('drawer-wrapper');
+const drawer = document.getElementById('drawer');
+const openDrawerButton = document.getElementById('openDrawerButton');
+const closeDrawerButton = document.getElementById('closeDrawerButton');
+const backdrop = document.getElementById('backdrop');
+
+openDrawerButton.addEventListener('click', function() {
+    drawerWrapper.classList.remove('hidden');
+    requestAnimationFrame(() => {
+        drawer.classList.remove('-translate-x-full');
+        drawer.classList.add('translate-x-0');
+        backdrop.classList.add('opacity-50');
+        backdrop.classList.remove('opacity-0');
+    });
+});
+
+const closeDrawer = function() {
+    drawer.classList.remove('translate-x-0');
+    drawer.classList.add('-translate-x-full');
+    backdrop.classList.remove('opacity-50');
+    backdrop.classList.add('opacity-0');
+    setTimeout(() => {
+        drawerWrapper.classList.add('hidden');
+    }, 500); // Match this duration with the transition duration
+};
+
+closeDrawerButton.addEventListener('click', closeDrawer);
+backdrop.addEventListener('click', closeDrawer);
+//start dashboard side left drawer end
