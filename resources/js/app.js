@@ -239,14 +239,16 @@ $(document).ready(function() {
             toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
     });
-    $('#saveChanges').click(function() {
+   $('#saveChanges').click(function() {
         var rowId = $('#row-id').val(); // Retrieve the row ID
-        var formData = $('#editForm').serialize(); // Serialize form data
+        var formData = new FormData($('#editForm')[0]); // Use FormData to handle file uploads correctly
 
         $.ajax({
             url: '/dashboard/update/' + rowId, // Your update route for the row
             type: 'PUT',
             data: formData,
+            contentType: false, // Important for file uploads
+            processData: false, // Important for file uploads
             success: function(result) {
                 table.ajax.reload(); // Refresh the DataTable
                 const modal = document.getElementById('editModal'); // Get the edit modal element
@@ -254,10 +256,21 @@ $(document).ready(function() {
                 modal.classList.add('hidden');
             },
             error: function(err) {
+                // Check if the response has a JSON body
+                let errorMessage = 'Could not update the record.';
+
+                if (err.responseJSON && err.responseJSON.error) {
+                    // Use the error message returned from the server
+                    errorMessage = err.responseJSON.error;
+                } else if (err.responseJSON && err.responseJSON.errors) {
+                    // If there are validation errors, format a specific message
+                    errorMessage = Object.values(err.responseJSON.errors).map(errorArray => errorArray[0]).join(', ');
+                }
+
                 Toast.fire({
                     icon: 'error',
-                    title: 'Fill up all the fields.'
-                  });
+                    title: errorMessage // Set dynamic error message
+                });
             }
         });
     });

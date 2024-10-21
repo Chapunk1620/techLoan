@@ -13,11 +13,12 @@ class Loan extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'date' => 'datetime:Y-m-d g:i A',
-        'due_date' => 'datetime:m-d-Y g:i A',
-        'created_at' => 'datetime:Y-m-d g:i A',
-        'updated_at' => 'datetime:Y-m-d g:i A',
+        // 'date' => 'datetime:m-d-Y g:i A',        // mm-dd-yyyy format with time
+        // 'due_date' => 'datetime:m-d-Y g:i A',    // mm-dd-yyyy format with time
+        // 'created_at' => 'datetime:m-d-Y g:i A',  // mm-dd-yyyy format with time
+        // 'updated_at' => 'datetime:m-d-Y g:i A',  // mm-dd-yyyy format with time
     ];
+
     public function item()
     {
         return $this->belongsTo(Item::class, 'item_key', 'item_key');

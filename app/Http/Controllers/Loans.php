@@ -77,22 +77,39 @@ class Loans extends Controller
     public function update(Request $request, $id) {
         // Validate incoming request data
         $validatedData = $request->validate([
-            // 'borrower-id' => 'string',
-            // 'item-key' => 'string|max:255',
-            // 'due-date' => 'date_format:Y-m-d\TH:i', // Use date format for datetime-local input
-            // 'description' => 'string',
-            'status' => 'string',
-            'it-receiver' => 'string|max:255',
+            // Uncomment these if these fields are required for your update logic
+            // 'borrower-id' => 'required|string|max:255',
+            // 'item-key' => 'required|string|max:255',
+            // 'due-date' => 'required|date_format:Y-m-d\TH:i', // Ensure this matches your datetime-local input
+            // 'description' => 'nullable|string',
+            'status' => 'required|string',
+            'it-receiver' => 'required|string|max:255',
+            'after-condition' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048', // Handle file uploads
         ]);
+
         try {
-            // Find the record and update it
+            // Find the loan record and update it
             $loan = Loan::findOrFail($id);
+            
+            // Uncomment and set these fields as required 
+            // if needed for your application logic
             // $loan->id_borrower = $validatedData['borrower-id'];
             // $loan->item_key = $validatedData['item-key'];
             // $loan->due_date = $validatedData['due-date'];
             // $loan->description = $validatedData['description'];
+            
             $loan->status = $validatedData['status'];
             $loan->it_receiver = $validatedData['it-receiver'];
+
+            // Handle the file upload if it exists
+            if ($request->hasFile('after-condition')) {
+                // Create a unique folder structure
+                $folderName = 'uploads/' . date('Y/m/d/H-i-s');
+                // Store the file and save the file path to the model
+                $filePath = $request->file('after-condition')->store($folderName);
+                $loan->file_path = $filePath; // Ensure you save the file path if required
+            }
+
             $loan->save();
 
             return response()->json(['success' => 'Record updated successfully.']);

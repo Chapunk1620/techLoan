@@ -175,8 +175,8 @@
         
         <!-- Drawer Content -->
         <div class="p-4">
-            <h2 class="text-xl font-semibold">Drawer Title</h2>
-            <p class="mt-2 text-gray-600">This is the drawer content.</p>
+            <h2 class="text-xl font-semibold">Add Item</h2>
+            <p class="mt-2 text-gray-600">input item information</p>
         </div>
     </div>
 </div>
