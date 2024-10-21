@@ -73,6 +73,7 @@ $(document).ready(function() {
         },
         columnDefs: [
             { targets: [8], orderable: false },  // Disable sorting for the delete button column
+            { targets: [5], orderable: false },  // Disable sorting for the delete button column
             { targets: [9], orderable: false }   // Disable sorting for the edit button column
         ],
         drawCallback: function(settings) {
@@ -81,6 +82,7 @@ $(document).ready(function() {
             $('label[for="dt-length-0"]').addClass('hidden');
         }
     });
+    
     
 
 

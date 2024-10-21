@@ -1,5 +1,7 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 lg:p-20">
     <div class="col-span-1 sm:col-span-2 lg:col-span-4 row-span-3 bg-white/70 shadow-md p-4 lg:p-7 rounded-2xl">
+        <p class="text-center text-2xl py-10">Loans Record</p>
+
         <!-- Filters -->
         <p>Filters:</p>
         <div class="flex items-center justify-between mb-4">
@@ -39,7 +41,7 @@
                     <tr>
                         <th class="px-4 py-2">ID</th>
                         <th class="px-4 py-2">Borrower ID</th>
-                        <th class="px-4 py-2">Item Key</th>
+                        <th class="px-4 py-2">Item No.</th>
                         <th class="px-4 py-2">Due Date</th>
                         <th class="px-4 py-2">Status</th>
                         <th class="px-4 py-2">Description</th>
@@ -78,13 +80,15 @@
             <!-- Your Form -->
             <form action="{{ route('loan.store') }}" method="POST" class="max-w-md mx-auto">
                 @csrf
-                <div class="relative z-0 w-full mb-5 group">
-                    <input type="text" name="borrower-id" id="borrower-id" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                    <label for="borrower-id" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Borrower Id No</label>
-                </div>
-                <div class="relative z-0 w-full mb-5 group">
-                    <input type="text" name="borrower-name" id="borrower-name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                    <label for="borrower-name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Borrower Name</label>
+                <div class="flex flex-row space-x-5">
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="text" name="borrower-id" id="borrower-id" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                        <label for="borrower-id" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Borrower Id No</label>
+                    </div>
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="text" name="borrower-name" id="borrower-name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                        <label for="borrower-name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Borrower Name</label>
+                    </div>
                 </div>
                 <div class="relative z-0 w-full mb-5 group">
                     <input type="text" name="item-key" id="item-key" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
@@ -115,6 +119,7 @@
     <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg mx-4 md:max-w-md h-[80%] overflow-y-auto">
         <h2 class="text-lg font-semibold mb-4">Edit Record</h2>
         <form id="editForm" enctype="multipart/form-data">
+            @csrf
             <input type="hidden" id="row-id" name="row-id">
             <div class="mb-4">
                 <label for="borrower-id" class="block text-sm font-medium text-gray-700">Borrower ID</label>
