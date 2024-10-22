@@ -118,8 +118,9 @@
 <div class="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 hidden" id="editModal">
     <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg mx-4 md:max-w-md h-[80%] overflow-y-auto">
         <h2 class="text-lg font-semibold mb-4">Edit Record</h2>
-        <form id="editForm" enctype="multipart/form-data">
+        <form id="editForm" enctype="multipart/form-data" method="POST">
             @csrf
+            @method('PUT')
             <input type="hidden" id="row-id" name="row-id">
             <div class="mb-4">
                 <label for="borrower-id" class="block text-sm font-medium text-gray-700">Borrower ID</label>

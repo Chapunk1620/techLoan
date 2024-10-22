@@ -239,26 +239,30 @@ $(document).ready(function() {
             toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
     });
-   $('#saveChanges').click(function() {
+    //Saving Changes on Loan record
+    $('#saveChanges').click(function() {
         var rowId = $('#row-id').val(); // Retrieve the row ID
         var formData = new FormData($('#editForm')[0]); // Use FormData to handle file uploads correctly
-
+    
         $.ajax({
             url: '/dashboard/update/' + rowId, // Your update route for the row
-            type: 'PUT',
+            type: 'POST', // Use POST method with _method input for PUT
             data: formData,
             contentType: false, // Important for file uploads
             processData: false, // Important for file uploads
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             success: function(result) {
                 table.ajax.reload(); // Refresh the DataTable
                 const modal = document.getElementById('editModal'); // Get the edit modal element
                 Swal.fire('Updated!', 'Your record has been updated.', 'success'); // Success message
                 modal.classList.add('hidden');
+                document.getElementById('after-condition').value = '';  //Clear value of after-condition input
             },
             error: function(err) {
                 // Check if the response has a JSON body
                 let errorMessage = 'Could not update the record.';
-
                 if (err.responseJSON && err.responseJSON.error) {
                     // Use the error message returned from the server
                     errorMessage = err.responseJSON.error;
@@ -266,14 +270,13 @@ $(document).ready(function() {
                     // If there are validation errors, format a specific message
                     errorMessage = Object.values(err.responseJSON.errors).map(errorArray => errorArray[0]).join(', ');
                 }
-
                 Toast.fire({
                     icon: 'error',
                     title: errorMessage // Set dynamic error message
                 });
             }
         });
-    });
+    });    
 });
 //Table js end
 //start dashboard side left drawer

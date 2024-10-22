@@ -23,4 +23,9 @@ class Loan extends Model
     {
         return $this->belongsTo(Item::class, 'item_key', 'item_key');
     }
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
+
 }

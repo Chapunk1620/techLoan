@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Loan;
 use App\Models\Item;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -12,8 +13,9 @@ class Loans extends Controller
 {
     public function dashboard()
     {
-        $data = Loan::all(); // Fetch all data from your model
-        return view('dashboard', ['data' => $data]); // Pass the data to the view
+        $data = Loan::all(); // Fetch all data from your model Loan
+        $after_con = Image::all();
+        return view('dashboard', ['data' => $data, 'after_con' => $after_con]); // Pass the data to the view
     }
     public function json(Request $request)
     {
@@ -84,7 +86,7 @@ class Loans extends Controller
             // 'description' => 'nullable|string',
             'status' => 'required|string',
             'it-receiver' => 'required|string|max:255',
-            'after-condition' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048', // Handle file uploads
+            'after-condition' => 'required|mimes:pdf,jpg,jpeg,png|max:100048', // Handle file uploads
         ]);
 
         try {
@@ -104,14 +106,21 @@ class Loans extends Controller
             // Handle the file upload if it exists
             if ($request->hasFile('after-condition')) {
                 // Create a unique folder structure
-                $folderName = 'uploads/' . date('Y/m/d/H-i-s');
-                // Store the file and save the file path to the model
-                $filePath = $request->file('after-condition')->store($folderName);
-                $loan->file_path = $filePath; // Ensure you save the file path if required
+                $folderName = 'uploads/loan-after-condition/' . $loan->id;
+                
+                // Store the file and save the file path
+                $request->file('after-condition');
+                $file = $request->file('after-condition');
+                $filePath = $file->store($folderName, 'public'); // Store the file using the specified folder
+
+                // Create a new image record associated with the loan
+                $image = new Image;
+                $image->loan_id = $loan->id; // Link to loan
+                $image->file_name = $file->getClientOriginalName(); // Store the original file name
+                $image->file_path = $filePath; // Store path
+                $image->save(); // Save the image record
             }
-
-            $loan->save();
-
+            $loan->save(); // Save the loan after updating
             return response()->json(['success' => 'Record updated successfully.']);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Could not update the record.'], 500);
