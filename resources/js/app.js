@@ -196,21 +196,30 @@ $(document).ready(function() {
     });
     $(document).on('click', '.edit-row', function() {
         var rowId = $(this).data('id');
-
-        // Fetch the data for the selected row using the rowId
+    
         $.ajax({
             url: '/dashboard/edit/' + rowId,
             type: 'GET',
             success: function(data) {
+                console.log(data.image_path); // Log the path for debugging
+    
                 // Populate the form
-                $('#editModal #row-id').val(data.id);
-                $('#editModal #borrower-id').val(data.id_borrower);
-                $('#editModal #item-key').val(data.item_key);
-                $('#editModal #due-date').val(data.due_date); // Set the input value to the formatted date
-                $('#editModal #status').val(data.status);
-                $('#editModal #description').val(data.description);
-                $('#editModal #it-receiver').val(data.it_receiver);
-
+                $('#editModal #row-id').val(data.loan.id);
+                $('#editModal #borrower-id').val(data.loan.id_borrower);
+                $('#editModal #item-key').val(data.loan.item_key);
+                $('#editModal #due-date').val(data.loan.due_date);
+                $('#editModal #status').val(data.loan.status);
+                $('#editModal #description').val(data.loan.description);
+                $('#editModal #it-receiver').val(data.loan.it_receiver);
+    
+                // Set the image source, hide div if path is null or empty
+                if (data.loan.image_path && data.loan.image_path.trim() !== 'null' && data.loan.image_path.trim() !== '') {
+                    $('#current-image').show();
+                    $('#current-condition').attr('src', data.loan.image_path);
+                } else {
+                    $('#current-image').hide();
+                }
+    
                 // Show the modal
                 const modal = document.getElementById('editModal');
                 modal.classList.remove('hidden');
@@ -223,10 +232,7 @@ $(document).ready(function() {
                 alert('Error fetching data for editing.');
             }
         });
-    });
-
-
-
+    });    
     //toast
     const Toast = Swal.mixin({
         toast: true,

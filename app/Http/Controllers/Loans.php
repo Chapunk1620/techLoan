@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Loan;
 use App\Models\Item;
+use App\Models\Loan;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
 use function Laravel\Prompts\alert;
+use Illuminate\Support\Facades\Storage;
 
 class Loans extends Controller
 {
@@ -86,7 +87,7 @@ class Loans extends Controller
             // 'description' => 'nullable|string',
             'status' => 'required|string',
             'it-receiver' => 'required|string|max:255',
-            'after-condition' => 'required|mimes:pdf,jpg,jpeg,png|max:100048', // Handle file uploads
+            'after-condition' => 'mimes:pdf,jpg,jpeg,png|max:100048', // Handle file uploads
         ]);
 
         try {
@@ -126,12 +127,23 @@ class Loans extends Controller
             return response()->json(['error' => 'Could not update the record.'], 500);
         }
     }
-    public function edit($id)
-    {
+    public function edit($id) {
         // Find the loan record by ID
         $loan = Loan::findOrFail($id);
 
-        // Return the loan data as JSON
-        return response()->json($loan);
+        // Fetch the latest image path if the $id matches the loan_field of Image table
+        $image = Image::where('loan_id', $id)->orderBy('created_at', 'desc')->first();
+
+        // Use the path as stored in the database
+        $imagePath = $image ? $image->file_path : null;
+
+        // Add the image path to the loan data
+        $loan->image_path = $imagePath;
+
+        // Return the loan data with image path as JSON
+        return response()->json([
+            'loan' => $loan,
+            'image_path' => $imagePath
+        ]);
     }
 }

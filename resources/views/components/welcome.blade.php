@@ -1,7 +1,6 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 lg:p-20">
     <div class="col-span-1 sm:col-span-2 lg:col-span-4 row-span-3 bg-white/70 shadow-md p-4 lg:p-7 rounded-2xl">
-        <p class="text-center text-2xl py-10">Loans Record</p>
-
+        <p class="text-center text-2xl py-10">Borrowed Items Record</p>
         <!-- Filters -->
         <p>Filters:</p>
         <div class="flex items-center justify-between mb-4">
@@ -153,6 +152,10 @@
                 <label for="after-condition" class="block text-sm font-medium text-gray-900">Item Image</label>
                 <input type="file" id="after-condition" name="after-condition" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500">
             </div>            
+            <div class="mb-4" id="current-image">
+                <label for="current-condition" class="block text-sm font-medium text-gray-900">Current Image</label>
+                <img alt="Current Image" id="current-condition">
+            </div>                        
             <div class="flex gap-2">
                 <button type="button" class="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5" id="saveChanges">Save Changes</button>
                 <button type="button" id="closeModals" class="text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 font-medium rounded-lg px-5 py-2.5">Close</button>
