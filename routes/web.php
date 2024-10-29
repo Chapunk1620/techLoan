@@ -14,6 +14,7 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', [Loans::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard/data', [Loans::class, 'json']);
+    Route::get('/dashboard/dataItems', [Loans::class, 'getItemsData'])->name('dashboard.data-items');
 });
 Route::post('/store', [Loans::class, 'store'])->name('loan.store');
 Route::delete('/dashboard/delete/{id}', [Loans::class, 'destroy'])->name('loans.destroy');

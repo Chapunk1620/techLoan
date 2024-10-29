@@ -14,27 +14,47 @@ class Loans extends Controller
 {
     public function dashboard()
     {
-        $data = Loan::all(); // Fetch all data from your model Loan
+        $data = Loan::all();
+        $itemsData = Item::all();
         $after_con = Image::all();
-        return view('dashboard', ['data' => $data, 'after_con' => $after_con]); // Pass the data to the view
+        return view('dashboard', ['data' => $data, 'after_con' => $after_con, 'itemsData' => $itemsData]); // Pass the data to the view
     }
-    public function json(Request $request)
-    {
+    public function json(Request $request) {
         // Get base query
         $query = Loan::query();
+    
         // Apply month filter if selected
         if ($request->has('month') && !empty($request->month)) {
-            $query->whereMonth('date', $request->month); // Assuming 'date' is the field you want to filter by
+            $query->whereMonth('created_at', $request->month); // Assuming 'created_at' is the field you want to filter by
         }
+    
         // Apply status filter if selected
         if ($request->has('status') && !empty($request->status)) {
             $query->where('status', $request->status);
         }
+    
         // Return data to DataTables with server-side processing
         return DataTables::of($query)
             ->make(true);
-    }
+    }       
+    public function getItemsData(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = Item::query();
 
+            // Apply filters if needed
+            if ($request->has('month') && $request->month != '') {
+                $query->whereMonth('created_at', $request->month);
+            }
+
+            if ($request->has('status') && $request->status != '') {
+                $query->where('status', $request->status);
+            }
+
+            return DataTables::of($query)
+                ->make(true);
+        }
+    }
     public function store(Request $request)
     {
         // Validate the incoming request data

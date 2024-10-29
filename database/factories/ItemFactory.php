@@ -25,7 +25,7 @@ class ItemFactory extends Factory
             'item_key' => $this->faker->unique()->bothify('ITEM_##??'),
             'item_type' => $this->faker->randomElement(['product', 'service', 'digital', 'physical']),
             'attachment' => $this->faker->optional(0.7)->imageUrl(),
-            'status' => $this->faker->randomElement(['active', 'inactive', 'pending']),
+            'status' => $this->faker->randomElement(['Available', 'Borrowed']),
             'date_arrival' => $this->faker->dateTimeBetween('-1 year', 'now'), // Adding date_arrival
         ];
     }

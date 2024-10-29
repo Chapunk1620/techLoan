@@ -31,24 +31,30 @@ document.addEventListener("DOMContentLoaded", function () {
 //Landing footer animation end
 //Table js
 $(document).ready(function() {
+    // borrow table fetching all data
     var table = $('#postss-table').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
         ajax: {
             url: "/dashboard/data", // Your route to fetch data
-            data: function(d) {
-                d.month = $('#month-filter').val(); // Pass selected month
-                d.status = $('#status-filter').val(); // Pass selected status
+            data: function(dataObj) {
+                dataObj.month = $('#month-filter').val(); // Pass selected month
+                dataObj.status = $('#status-filter').val(); // Pass selected status
+                console.log("Month:", dataObj.month); // Debugging line
+                console.log("Status:", dataObj.status); // Debugging line
+            },
+            error: function(xhr, error, code) {
+                console.log("Error occurred:", error); // Debugging line
+                console.log("Response:", xhr.responseText); // Debugging line
             }
         },
         columns: [
             { data: "id" },
             { data: "id_borrower" },
             { data: "item_key" },
-            { data: "due_date" },
             { data: "status" },
-            { data: "description" },
+            { data: "created_at" },
             { data: "it_approver" },
             { data: "it_receiver" },
             {
@@ -72,24 +78,80 @@ $(document).ready(function() {
             searchPlaceholder: "Search..."
         },
         columnDefs: [
-            { targets: [8], orderable: false },  // Disable sorting for the delete button column
-            { targets: [5], orderable: false },  // Disable sorting for the delete button column
-            { targets: [9], orderable: false }   // Disable sorting for the edit button column
+            { targets: [7], orderable: false },  // Disable sorting for the delete button column
+            { targets: [8], orderable: false }   // Disable sorting for the edit button column
         ],
         drawCallback: function(settings) {
             $('.dataTables_paginate').addClass('p-4');
             $('.dataTables_length').addClass('p-4');
             $('label[for="dt-length-0"]').addClass('hidden');
         }
+    });    
+
+    // Event listener to redraw table when month or status filter changes
+    $('#month-filter, #status-filter').change(function() {
+        table.draw();
     });
-    
-    
 
-
+    // Item Table
+    $(document).ready(function() {
+        var table = $('#items-table').DataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            ajax: {
+                url: "/dashboard/dataItems",
+                data: function(dataObj) {
+                    dataObj.month = $('#item-month-filter').val(); // Use the correct ID
+                }
+            },
+            columns: [
+                { data: "id" },
+                { data: "item_key" },
+                { data: "date_arrival" },
+                { data: "created_at" },
+                { data: "status" },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return '<button class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 edit-row" data-id="' + row.id + '"><i class="fa-solid fa-edit"></i></button>';
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return '<button class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700 delete-row" data-id="' + row.id + '"><i class="fa-solid fa-trash"></i></button>';
+                    }
+                },
+            ],
+            createdRow: function(row, data, dataIndex) {
+                $(row).find('td').addClass('px-4 py-2 text-sm');
+            },
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search..."
+            },
+            columnDefs: [
+                { targets: [5, 6], orderable: false }  // Disable sorting for the edit and delete button columns
+            ],
+            drawCallback: function(settings) {
+                $('.dataTables_paginate').addClass('p-4');
+                $('.dataTables_length').addClass('p-4');
+                $('label[for="dt-length-0"]').addClass('hidden');
+            }
+        });
+    
+        // Event listener to redraw table when filter changes
+        $('#item-month-filter').change(function() {
+            table.draw();
+        });
+    });    
     // Trigger filtering when month or status is changed
     $('#month-filter, #status-filter').on('change', function() {
         table.ajax.reload(); // Reload table data based on new filter values
     });
+    // item table end
+
     // Add modal js
     document.getElementById('openModal').onclick = function() {
         const modal = document.getElementById('myModal');

@@ -21,7 +21,7 @@ class LoanFactory extends Factory
             'item_key' => Item::inRandomOrder()->first()->item_key,
             'date' => $date,
             'due_date' => $due_date,
-            'status' => $this->faker->randomElement(['pending', 'approved', 'returned', 'overdue']),
+            'status' => $this->faker->randomElement(['Pending', 'Returned', 'Overdue']),
             'description' => $this->faker->optional()->sentence(),
             'after_condition' => $this->faker->imageUrl(640, 480),
             'it_approver' => $this->faker->name(),
