@@ -90,7 +90,7 @@
             </div>
             <!-- Button to open the modal -->
             <div class="bg-blue-400 text-white rounded-md px-3 hover:bg-custom-blues hover:-translate-y-1">
-                <button id="openModal" class="p-2">
+                <button id="openModal-item" class="p-2">
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
@@ -218,6 +218,47 @@
             </form>
         </div>
     </div>
+    {{-- item table modals --}}
+    <!-- Modal add for item -->
+    <div id="myModal-item" class="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 transition-opacity hidden">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 md:w-1/3 transform transition-transform duration-300 ease-in-out scale-95 opacity-0" id="modalContent-item">
+            <h2 class="text-lg font-semibold mb-4">New Item Record</h2>
+            <!-- Form -->
+            <form action="{{ route('item.store') }}" enctype="multipart/form-data" method="POST" class="max-w-md mx-auto">
+                @csrf
+                <div class="flex flex-row space-x-5">
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="text" name="item-no" id="item-no" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                        <label for="item-no" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Item No.</label>
+                    </div>
+                </div>
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" name="item-type" id="item-type" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                    <label for="item-type" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Item Type</label>
+                </div>
+                <div class="grid md:gap-6">
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="datetime-local" name="date-arrived" id="date-arrived" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="" required />
+                        <label for="date-arrived" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Date Arrived</label>
+                    </div>
+                </div>
+                <div class="grid md:gap-6">
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="file" name="image-item" id="image-item" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="" required />
+                        <label for="image-item" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Image</label>
+                    </div>
+                </div>
+                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                <button type="button" id="closeModal-item" class="mt-4 bg-red-500 text-white rounded-lg px-4 py-2">Close</button>
+            </form>
+            <!-- End of Form -->
+        </div>
+    </div>
+    {{-- item table modals end--}}
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="fixed bottom-16 right-16 bg-blue-600 text-white rounded-full shadow-lg transition-transform duration-300 transform hover:scale-105 w-11 h-11 flex items-center justify-center" style="display: none;">
+    <i class="fa-solid fa-arrow-up"></i>
+    </button>
     {{-- side drawer start --}}
     <div class="fixed inset-0 flex z-50 hidden" id="drawer-wrapper">
         <!-- Backdrop -->

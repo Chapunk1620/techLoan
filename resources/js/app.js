@@ -66,7 +66,7 @@ $(document).ready(function() {
             {
                 data: null,
                 render: function(data, type, row) {
-                    return '<button class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700 delete-row" data-id="' + row.id + '"><i class="fa-solid fa-trash"></i></button>';
+                    return '<button id="delete-item" class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700 delete-row" data-id="' + row.id + '"><i class="fa-solid fa-trash"></i></button>';
                 }
             },
         ],
@@ -94,68 +94,75 @@ $(document).ready(function() {
     });
 
     // Item Table
-    $(document).ready(function() {
-        var table = $('#items-table').DataTable({
-            processing: true,
-            serverSide: true,
-            responsive: true,
-            ajax: {
-                url: "/dashboard/dataItems",
-                data: function(dataObj) {
-                    dataObj.month = $('#item-month-filter').val(); // Use the correct ID
+    var tableItem = $('#items-table').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        ajax: {
+            url: "/dashboard/dataItems",
+            data: function(dataObj) {
+                dataObj.month = $('#item-month-filter').val(); // Use the correct ID
+            }
+        },
+        columns: [
+            { data: "id" },
+            { data: "item_key" },
+            { data: "date_arrival" },
+            { data: "created_at" },
+            { data: "status" },
+            {
+                data: null,
+                render: function(data, type, row) {
+                    return '<button class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 edit-row" data-id="' + row.id + '"><i class="fa-solid fa-edit"></i></button>';
                 }
             },
-            columns: [
-                { data: "id" },
-                { data: "item_key" },
-                { data: "date_arrival" },
-                { data: "created_at" },
-                { data: "status" },
-                {
-                    data: null,
-                    render: function(data, type, row) {
-                        return '<button class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 edit-row" data-id="' + row.id + '"><i class="fa-solid fa-edit"></i></button>';
-                    }
-                },
-                {
-                    data: null,
-                    render: function(data, type, row) {
-                        return '<button class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700 delete-row" data-id="' + row.id + '"><i class="fa-solid fa-trash"></i></button>';
-                    }
-                },
-            ],
-            createdRow: function(row, data, dataIndex) {
-                $(row).find('td').addClass('px-4 py-2 text-sm');
+            {
+                data: null,
+                render: function(data, type, row) {
+                    return '<button id="delete-item-' + row.id + '" class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700 delete-row-item" data-id="' + row.id + '"><i class="fa-solid fa-trash"></i></button>';
+                }
             },
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search..."
-            },
-            columnDefs: [
-                { targets: [5, 6], orderable: false }  // Disable sorting for the edit and delete button columns
-            ],
-            drawCallback: function(settings) {
-                $('.dataTables_paginate').addClass('p-4');
-                $('.dataTables_length').addClass('p-4');
-                $('label[for="dt-length-0"]').addClass('hidden');
-            }
-        });
+        ],
+        createdRow: function(row, data, dataIndex) {
+            $(row).find('td').addClass('px-4 py-2 text-sm');
+        },
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search..."
+        },
+        columnDefs: [
+            { targets: [5, 6], orderable: false }  // Disable sorting for the edit and delete button columns
+        ],
+        drawCallback: function(settings) {
+            $('.dataTables_paginate').addClass('p-4');
+            $('.dataTables_length').addClass('p-4');
+            $('label[for="dt-length-0"]').addClass('hidden');
+        }
+    });
+
+    // Event listener to redraw table when filter changes
+    $('#item-month-filter').change(function() {
+        tableItem.draw();
+    });
     
-        // Event listener to redraw table when filter changes
-        $('#item-month-filter').change(function() {
-            table.draw();
-        });
-    });    
     // Trigger filtering when month or status is changed
     $('#month-filter, #status-filter').on('change', function() {
         table.ajax.reload(); // Reload table data based on new filter values
     });
     // item table end
 
-    // Add modal js
+    // Add modal js to pop up
     document.getElementById('openModal').onclick = function() {
         const modal = document.getElementById('myModal');
         const modalContent = document.getElementById('modalContent');
+        modal.classList.remove('hidden');
+        modalContent.classList.remove('scale-95', 'opacity-0');
+        modalContent.classList.add('scale-100', 'opacity-100');
+    }
+    // Add modal item
+    document.getElementById('openModal-item').onclick = function() {
+        const modal = document.getElementById('myModal-item'); // Updated ID here
+        const modalContent = document.getElementById('modalContent-item'); // Updated ID here
         modal.classList.remove('hidden');
         modalContent.classList.remove('scale-95', 'opacity-0');
         modalContent.classList.add('scale-100', 'opacity-100');
@@ -170,6 +177,7 @@ $(document).ready(function() {
             modal.classList.add('hidden');
         }, 300); // duration of transition
     }
+    // close button for edit borrow record
     document.getElementById('closeModals').onclick = function() {
         const editModal = document.getElementById('editModal');
         const modalContent = document.getElementById('modalContent');
@@ -182,11 +190,43 @@ $(document).ready(function() {
         }, 300); // Match this time with the duration of the CSS transition
     }
 
-    // Close the modal when clicking outside of it
+    // Close the modal when clicking the close button
+    document.getElementById('closeModal-item').onclick = function() {
+        const modal = document.getElementById('myModal-item');
+        const modalContent = document.getElementById('modalContent-item');
+        modalContent.classList.remove('scale-100', 'opacity-100');
+        modalContent.classList.add('scale-95', 'opacity-0');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300); // Match this time with the duration of the CSS transition
+    }
+    // modal close when click outside of form
     window.onclick = function(event) {
+        // Close the modal when clicking outside of myModal-item
+        const modalItem = document.getElementById('myModal-item');
+        const modalContentItem = document.getElementById('modalContent-item');
+        if (event.target === modalItem) {
+            modalContentItem.classList.remove('scale-100', 'opacity-100');
+            modalContentItem.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modalItem.classList.add('hidden');
+            }, 300); // Match this time with the duration of the CSS transition
+        }
+        
+        // Close the edit modal when clicking outside of it
+        const editModal = document.getElementById('editModal');
+        const editModalContent = document.getElementById('modalContent'); // Ensure it's the correct content ID
+        if (event.target === editModal) {
+            editModalContent.classList.remove('scale-100', 'opacity-100');
+            editModalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                editModal.classList.add('hidden');
+            }, 300); // Match this time with the duration of the CSS transition
+        }
+        // Close modal for add borrow 
         const modal = document.getElementById('myModal');
+        const modalContent = document.getElementById('modalContent');
         if (event.target === modal) {
-            const modalContent = document.getElementById('modalContent');
             modalContent.classList.remove('scale-100', 'opacity-100');
             modalContent.classList.add('scale-95', 'opacity-0');
             setTimeout(() => {
@@ -204,20 +244,8 @@ $(document).ready(function() {
             }
         });
     });
-    // Close the edit modal when clicking outside of it
-    window.onclick = function(event) {
-        const editModal = document.getElementById('editModal');
-        const modalContent = document.getElementById('modalContent');
-        if (event.target === editModal) {
-            modalContent.classList.remove('scale-100', 'opacity-100');
-            modalContent.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                editModal.classList.add('hidden');
-            }, 300); // Match this time with the duration of the CSS transition
-        }
-    }
 
-    //delete button for table
+    //delete button for table borrow
     $(document).on('click', '.delete-row', function() {
         var rowId = $(this).data('id');
 
@@ -255,7 +283,47 @@ $(document).ready(function() {
                 });
             }
         });
+    }); 
+    // Delete button functionality for items-table
+    $(document).on('click', '.delete-row-item',function() {
+        var itemId = $(this).data('id');
+
+        // Use SweetAlert2 for confirmation
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/dashboard/deleteItem/' + itemId, // Your delete route
+                    type: 'DELETE',
+                    success: function(result) {
+                        // Optionally handle success response
+                        tableItem.ajax.reload(); // Refresh the table data
+                        Swal.fire(
+                            'Deleted!',
+                            'Item has been deleted.',
+                            'success'
+                        );
+                    },
+                    error: function(err) {
+                        console.error(err); // Log the full error for debugging
+                        Swal.fire(
+                            'Error!',
+                            'Error deleting item. Please try again.',
+                            'error'
+                        );
+                    }
+                });
+            }
+        });
     });
+    
     $(document).on('click', '.edit-row', function() {
         var rowId = $(this).data('id');
     
@@ -295,7 +363,7 @@ $(document).ready(function() {
             }
         });
     });    
-    //toast
+    //toast 
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -346,6 +414,7 @@ $(document).ready(function() {
         });
     });    
 });
+// end of docu ready func
 //Table js end
 //start dashboard side left drawer
 const drawerWrapper = document.getElementById('drawer-wrapper');
@@ -377,3 +446,23 @@ const closeDrawer = function() {
 closeDrawerButton.addEventListener('click', closeDrawer);
 backdrop.addEventListener('click', closeDrawer);
 //start dashboard side left drawer end
+
+// Get the button
+const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+// Show the button when scrolling down
+window.onscroll = function() {
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        scrollToTopBtn.style.display = 'block';
+    } else {
+        scrollToTopBtn.style.display = 'none';
+    }
+};
+
+// Smooth scroll to the top when the button is clicked
+scrollToTopBtn.onclick = function() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+};
