@@ -29,7 +29,7 @@
                 </select>
             </div>
             <!-- Button to open the modal -->
-            <div class="bg-blue-400 text-white rounded-md px-3 hover:bg-custom-blues hover:-translate-y-1">
+            <div class="bg-blue-400 text-white rounded-md px-3 hover:bg-custom-blues hover:-translate-y-1 transition-transform duration-300 transform">
                 <button id="openModal" class="p-2">
                     <i class="fa-solid fa-plus"></i>
                 </button>
@@ -89,7 +89,7 @@
                 </select>                
             </div>
             <!-- Button to open the modal -->
-            <div class="bg-blue-400 text-white rounded-md px-3 hover:bg-custom-blues hover:-translate-y-1">
+            <div class="bg-blue-400 text-white rounded-md px-3 hover:bg-custom-blues hover:-translate-y-1 transition-transform duration-300 transform">
                 <button id="openModal-item" class="p-2">
                     <i class="fa-solid fa-plus"></i>
                 </button>
@@ -120,12 +120,6 @@
             </table>
         </div>
     </div>    
-    <div class="col-span-1 sm:col-span-1 lg:col-span-2 bg-white/70 shadow-md p-4 lg:p-7 rounded-2xl">
-        2asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdf
-    </div>
-    <div class="col-span-1 sm:col-span-1 lg:col-span-2 bg-white/70 shadow-md p-4 lg:p-7 rounded-2xl">
-        3asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdfe asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdfe asdf asdf
-    </div>
     {{-- Table for items end --}}
     <!-- Modal -->
     <div id="myModal" class="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 transition-opacity hidden">
@@ -255,8 +249,47 @@
         </div>
     </div>
     {{-- item table modals end--}}
+    <!-- Edit Modal for item -->
+    <div class="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 hidden" id="edit-item-modal">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg mx-4 md:max-w-md h-[80%] overflow-y-auto">
+            <h2 class="text-lg font-semibold mb-4">Edit Record</h2>
+            <form id="editFormItem" enctype="multipart/form-data" method="POST">
+                @csrf
+                @method('PUT')
+                <input type="hidden" id="edit-item-row-id" name="edit-item-row-id">
+                <div class="mb-4">
+                    <label for="edit-item-item-key" class="block text-sm font-medium text-gray-700">Item No.</label>
+                    <input type="text" id="edit-item-item-key" name="edit-item-item-key" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
+                </div>
+                <div class="mb-4">
+                    <label for="edit-item-item-type" class="block text-sm font-medium text-gray-700">Item Type</label>
+                    <input type="text" id="edit-item-item-type" name="edit-item-item-type" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
+                </div>
+                <div class="mb-4">
+                    <label for="edit-item-status" class="block text-sm font-medium text-gray-700">Status</label>
+                    <input type="text" id="edit-item-status" name="edit-item-status" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
+                </div>
+                <div class="mb-4">
+                    <label for="edit-item-arrive" class="block text-sm font-medium text-gray-700">Date Arrive</label>
+                    <input type="datetime-local" id="edit-item-arrive" name="edit-item-arrive" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
+                </div>
+                <div class="mb-4">
+                    <label for="edit-item-image" class="block text-sm font-medium text-gray-900">Item Image</label>
+                    <input type="file" id="edit-item-image" name="edit-item-image" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500">
+                </div>
+                <div class="mb-4" id="current-image">
+                    <label for="edit-item-current-condition" class="block text-sm font-medium text-gray-900">Current Image</label>
+                    <img alt="Current Image" id="edit-item-current-condition" src="/storage/uploads/item-image/weafew/0.4.jpg" >
+                </div>
+                <div class="flex gap-2">
+                    <button type="button" class="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5" id="edit-item-saveChanges">Save Changes</button>
+                    <button type="button" id="edit-item-closeModals" class="text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 font-medium rounded-lg px-5 py-2.5">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <!-- Scroll to Top Button -->
-    <button id="scrollToTopBtn" class="fixed bottom-16 right-16 bg-blue-600 text-white rounded-full shadow-lg transition-transform duration-300 transform hover:scale-105 w-11 h-11 flex items-center justify-center" style="display: none;">
+    <button id="scrollToTopBtn" class="fixed bottom-24 right-5 bg-blue-600 text-white rounded-full shadow-lg transition-transform duration-300 transform hover:scale-105 w-11 h-11 flex items-center justify-center" style="display: none;">
     <i class="fa-solid fa-arrow-up"></i>
     </button>
     {{-- side drawer start --}}
@@ -275,14 +308,16 @@
             
             <!-- Drawer Content -->
             <div class="p-4">
-                <h2 class="text-xl font-semibold">Add Item</h2>
-                <p class="mt-2 text-gray-600">input item information</p>
+                <h2 class="text-xl font-semibold">Statistics</h2>
+                <p class="mt-2 text-gray-600">under development statistics</p>
             </div>
         </div>
     </div>
     {{-- side drawer end --}}
     {{-- side drawer button open --}}
-    <button id="openDrawerButton" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Open Drawer</button>
+    <button id="openDrawerButton" class="transition-transform duration-300 transform hover:scale-105 fixed bottom-7 right-5 w-11 h-11 bg-blue-600 text-white rounded-full  flex items-center justify-center">
+    <i class="fa-solid fa-chart-simple"></i>
+    </button>
     {{-- errors handler --}}
     @if ($errors->any())
         <script>

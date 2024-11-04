@@ -113,7 +113,7 @@ $(document).ready(function() {
             {
                 data: null,
                 render: function(data, type, row) {
-                    return '<button class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 edit-row" data-id="' + row.id + '"><i class="fa-solid fa-edit"></i></button>';
+                    return '<button class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 edit-row-item" data-id="' + row.id + '"><i class="fa-solid fa-edit"></i></button>';
                 }
             },
             {
@@ -189,6 +189,18 @@ $(document).ready(function() {
             editModal.classList.add('hidden'); // Hide the modal
         }, 300); // Match this time with the duration of the CSS transition
     }
+    // close button for edit Item record
+    document.getElementById('edit-item-closeModals').onclick = function() {
+        const editModal = document.getElementById('edit-item-modal');
+        const modalContent = document.getElementById('modalContent');
+        
+        modalContent.classList.remove('scale-100', 'opacity-100');
+        modalContent.classList.add('scale-95', 'opacity-0');
+
+        setTimeout(() => {
+            editModal.classList.add('hidden'); // Hide the modal
+        }, 300); // Match this time with the duration of the CSS transition
+    }
 
     // Close the modal when clicking the close button
     document.getElementById('closeModal-item').onclick = function() {
@@ -231,6 +243,16 @@ $(document).ready(function() {
             modalContent.classList.add('scale-95', 'opacity-0');
             setTimeout(() => {
                 modal.classList.add('hidden');
+            }, 300); // Match this time with the duration of the CSS transition
+        }
+        // Close modal for editItem
+        const modalEditItem = document.getElementById('edit-item-modal');
+        const modalEditContentItem = document.getElementById('modalContent');
+        if (event.target === modalEditItem) {
+            modalEditContentItem.classList.remove('scale-100', 'opacity-100');
+            modalEditContentItem.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modalEditItem.classList.add('hidden');
             }, 300); // Match this time with the duration of the CSS transition
         }
     }
@@ -323,7 +345,7 @@ $(document).ready(function() {
             }
         });
     });
-    
+    // borrow edit modal fetch data to display on modal
     $(document).on('click', '.edit-row', function() {
         var rowId = $(this).data('id');
     
@@ -352,6 +374,41 @@ $(document).ready(function() {
     
                 // Show the modal
                 const modal = document.getElementById('editModal');
+                modal.classList.remove('hidden');
+                const modalContent = document.getElementById('modalContent');
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            },
+            error: function(err) {
+                console.error(err);
+                alert('Error fetching data for editing.');
+            }
+        });
+    });
+    // item edit modal fetch data to display on modal
+    $(document).on('click', '.edit-row-item', function() {
+        var rowId = $(this).data('id');
+    
+        $.ajax({
+            url: '/dashboard/editItem/' + rowId,
+            type: 'GET',
+            success: function(data) {
+                // Populate the form
+                $('#edit-item-modal #edit-item-row-id').val(data.item.id);
+                $('#edit-item-modal #edit-item-item-key').val(data.item.item_key);
+                $('#edit-item-modal #edit-item-item-type').val(data.item.item_type);
+                $('#edit-item-modal #edit-item-status').val(data.item.status);
+                $('#edit-item-modal #edit-item-arrive').val(data.item.date_arrival);
+    
+                // Set the image source, hide div if path is null or empty
+                if (data.item.latestImage && data.item.latestImage.trim() !== 'null' && data.item.latestImage.trim() !== '') {
+                    $('#edit-item-image').show();
+                    $('#edit-item-current-condition').attr('src', data.item.latestImage);
+                } else {
+                    $('#edit-item-current-condition').hide();
+                }
+                // Show the modal
+                const modal = document.getElementById('edit-item-modal');
                 modal.classList.remove('hidden');
                 const modalContent = document.getElementById('modalContent');
                 modalContent.classList.remove('scale-95', 'opacity-0');

@@ -22,4 +22,6 @@ Route::post('/items', [Items::class, 'store'])->name('item.store');
 Route::delete('/dashboard/delete/{id}', [Loans::class, 'destroy'])->name('loans.destroy');
 Route::delete('/dashboard/deleteItem/{id}', [Items::class, 'destroy'])->name('item.destroy');
 Route::put('/dashboard/update/{id}', [Loans::class, 'update'])->name('loans.update');
+Route::put('/dashboard/updateItem/{id}', [Items::class, 'update'])->name('item.update');
 Route::get('/dashboard/edit/{id}', [Loans::class, 'edit'])->name('loans.edit');
+Route::get('/dashboard/editItem/{id}', [Items::class, 'edit'])->name('item.edit');
