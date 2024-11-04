@@ -87,7 +87,7 @@ class Items extends Controller
                 $filePath = $file->store($folderName, 'public'); // Store the file using the specified folder
 
                 // Create a new image record associated with the loan
-                $image = new Image;
+                $image = new Item;
                 $image->loan_id = $loan->id; // Link to loan
                 $image->file_name = $file->getClientOriginalName(); // Store the original file name
                 $image->file_path = $filePath; // Store path

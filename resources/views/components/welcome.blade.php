@@ -277,9 +277,9 @@
                     <label for="edit-item-image" class="block text-sm font-medium text-gray-900">Item Image</label>
                     <input type="file" id="edit-item-image" name="edit-item-image" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500">
                 </div>
-                <div class="mb-4" id="current-image">
+                <div class="mb-4" id="current-image-item">
                     <label for="edit-item-current-condition" class="block text-sm font-medium text-gray-900">Current Image</label>
-                    <img alt="Current Image" id="edit-item-current-condition" src="/storage/uploads/item-image/weafew/0.4.jpg" >
+                    <img alt="Current Image" id="edit-item-current-condition">
                 </div>
                 <div class="flex gap-2">
                     <button type="button" class="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5" id="edit-item-saveChanges">Save Changes</button>

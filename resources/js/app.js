@@ -402,10 +402,10 @@ $(document).ready(function() {
     
                 // Set the image source, hide div if path is null or empty
                 if (data.item.latestImage && data.item.latestImage.trim() !== 'null' && data.item.latestImage.trim() !== '') {
-                    $('#edit-item-image').show();
+                    $('#current-image-item').show();
                     $('#edit-item-current-condition').attr('src', data.item.latestImage);
                 } else {
-                    $('#edit-item-current-condition').hide();
+                    $('#current-image-item').hide();
                 }
                 // Show the modal
                 const modal = document.getElementById('edit-item-modal');
