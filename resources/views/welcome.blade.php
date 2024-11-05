@@ -53,12 +53,12 @@
                     <main class="lg:mt-6 2xl:mt-6 xl:mt-6 -mt-96 ">                                                                                    
                         <div class="grid grid-cols-1 md:grid-cols-5 sm:row-start-1 grid-rows-5 gap-4 p-4 text-black">
                             <div class="col-span-1 md:col-span-3 row-span-4 bg-white/50 p-10 rounded-2xl shadow-sm">
-                                <h1 class="text-center text-2xl font-bold italic">Welcome To Techloan</h1>
-                                <p class="mt-10">Techloan shows you all the records of borrowed items, the status of borrower requests, data filtration, date of deadline, pictures of items, and more.</p>
+                                <h1 class="text-center text-2xl font-bold italic">Welcome To Borrowing System</h1>
+                                <p class="mt-10">In this system, employees can borrow items such as laptops, projectors, or other IT equipment from the IT department.</p>
                             </div>
                             <div class="col-span-1 md:col-span-2 md:col-start-4 row-span-2 bg-white/50 p-10 rounded-2xl shadow-sm">
-                                <h1 class="text-center font-bold">HEPC</h1>
-                                <p>Techloan shows you all the records of borrowed items, the status of borrower requests, data filtration, date of deadline, pictures of items, and more.Techloan shows you all the records of borrowed items, the status of borrower requests, data filtration, date of deadline, pictures of items, and more.</p>
+                                <img src="{{ asset('images/LOGO.png') }}" alt="" class="justify-self-center">
+                                <p class=" text-justify ">Hayakawa Electronics (Phils.) Corp. (HEPC) was incorporated and registered with the Philippine Securities and Exchange Commission (SEC) on March 14, 1990. It is a wholly owned subsidiary of Hayakawa Densen Kogyo Co., Ltd. (the parent company), a company incorporated in Japan. HEPC is presently engaged in the manufacture, assembly, and fabrication of wire harness for various electronic and electrical appliances.</p>
                             </div>
                             <div class="col-span-1 md:col-span-2 md:col-start-4 row-span-2 row-start-3 bg-white/50 p-10 rounded-2xl shadow-sm">
                                 <h1 class="font-bold text-center">ICT</h1>

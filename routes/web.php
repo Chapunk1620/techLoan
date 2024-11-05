@@ -25,3 +25,5 @@ Route::put('/dashboard/update/{id}', [Loans::class, 'update'])->name('loans.upda
 Route::put('/dashboard/updateItem/{id}', [Items::class, 'update'])->name('item.update');
 Route::get('/dashboard/edit/{id}', [Loans::class, 'edit'])->name('loans.edit');
 Route::get('/dashboard/editItem/{id}', [Items::class, 'edit'])->name('item.edit');
+Route::get('/dashboard/borrowCount', [Loans::class, 'getCount'])->name('loans.counts');
+Route::get('/dashboard/itemCount', [Items::class, 'getCount'])->name('item.counts');

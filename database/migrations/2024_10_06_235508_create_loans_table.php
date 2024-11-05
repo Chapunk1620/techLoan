@@ -19,6 +19,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('it_approver')->nullable();
             $table->string('it_receiver')->nullable();
+            $table->string('item_returner_name')->nullable();
+            $table->string('item_returner_id')->nullable();
             $table->string('after_condition')->nullable();
             $table->timestamps();
 

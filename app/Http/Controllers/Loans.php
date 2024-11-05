@@ -74,7 +74,10 @@ class Loans extends Controller
             // Redirect back with error if item_key does not exist
             return redirect()->back()->withErrors(['item-key' => 'The specified item key does not exist in the items list.'])->withInput();
         }
-
+        // updating item status on items table
+        $item = Item::where('item_key', $validatedData['item-key'])->first();
+        $item->status = 'Borrowed';
+        $item->save();
         // Create a new Loan instance with validated data
         Loan::create([
             'id_borrower' => $validatedData['borrower-id'],
@@ -107,13 +110,14 @@ class Loans extends Controller
             // 'description' => 'nullable|string',
             'status' => 'required|string',
             'it-receiver' => 'required|string|max:255',
+            'item-returner-name' => 'nullable|string|max:255',
+            'item-returner-id' => 'nullable|string|max:255',
             'after-condition' => 'mimes:pdf,jpg,jpeg,png|max:100048', // Handle file uploads
         ]);
 
         try {
             // Find the loan record and update it
             $loan = Loan::findOrFail($id);
-            
             // Uncomment and set these fields as required 
             // if needed for your application logic
             // $loan->id_borrower = $validatedData['borrower-id'];
@@ -121,6 +125,20 @@ class Loans extends Controller
             // $loan->due_date = $validatedData['due-date'];
             // $loan->description = $validatedData['description'];
             
+            // if the value of status is 'Returned' update the status of the item in the items table as 'Available' then if status is 'Pending' update the status of the item in the items table as 'Borrowed'
+            if ($validatedData['status'] == 'Returned') {
+                $item = Item::where('item_key', $loan->item_key)->first();
+                $item->status = 'Available';
+                $item->save();
+            } 
+            else if ($validatedData['status'] == 'Pending') {
+                $item = Item::where('item_key', $loan->item_key)->first();
+                $item->status = 'Borrowed';
+                $item->save();
+            }
+            // assign the values of item-retuner-name and item-retuner-id to the loan record
+            $loan->item_returner_name = $validatedData['item-returner-name'];
+            $loan->item_returner_id = $validatedData['item-returner-id'];
             $loan->status = $validatedData['status'];
             $loan->it_receiver = $validatedData['it-receiver'];
 
@@ -164,6 +182,17 @@ class Loans extends Controller
         return response()->json([
             'loan' => $loan,
             'image_path' => $imagePath
+        ]);
+    }
+    // One fucntion that fetch the cound of Pending, Returned and total borrow records
+    public function getCount() {
+        $pending = Loan::where('status', 'Pending')->count();
+        $returned = Loan::where('status', 'Returned')->count();
+        $total = Loan::count();
+        return response()->json([
+            'pending' => $pending,
+            'returned' => $returned,
+            'total' => $total
         ]);
     }
 }

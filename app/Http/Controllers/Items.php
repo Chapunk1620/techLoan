@@ -96,4 +96,14 @@ class Items extends Controller
             return response()->json(['error' => 'Could not update the record.'], 500);
         }
     }
+    public function getCount() {
+        $borrowed = Item::where('status', 'Borrowed')->count();
+        $available = Item::where('status', 'Available')->count();
+        $total = Item::count();
+        return response()->json([
+            'borrowed' => $borrowed,
+            'available' => $available,
+            'total' => $total
+        ]);
+    }
 }

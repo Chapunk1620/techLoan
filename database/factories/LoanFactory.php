@@ -26,6 +26,8 @@ class LoanFactory extends Factory
             'after_condition' => $this->faker->imageUrl(640, 480),
             'it_approver' => $this->faker->name(),
             'it_receiver' => $this->faker->name(),
+            'item_returner_name' => $this->faker->name(),
+            'item_returner_id' => $this->faker->unique()->randomNumber(5),
         ];
     }
 }

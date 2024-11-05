@@ -60,13 +60,16 @@ $(document).ready(function() {
             {
                 data: null,
                 render: function(data, type, row) {
-                    return '<button class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 edit-row" data-id="' + row.id + '"><i class="fa-solid fa-edit"></i></button>';
-                }
-            },
-            {
-                data: null,
-                render: function(data, type, row) {
-                    return '<button id="delete-item" class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700 delete-row" data-id="' + row.id + '"><i class="fa-solid fa-trash"></i></button>';
+                    return `
+                        <div class="flex space-x-2 gap-2 justify-center">
+                            <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 edit-row" data-id="${row.id}">
+                                <i class="fa-solid fa-edit"></i>
+                            </button>
+                            <button id="delete-item" class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700 delete-row" data-id="${row.id}">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
                 }
             },
         ],
@@ -79,15 +82,15 @@ $(document).ready(function() {
         },
         columnDefs: [
             { targets: [7], orderable: false },  // Disable sorting for the delete button column
-            { targets: [8], orderable: false }   // Disable sorting for the edit button column
+            
         ],
         drawCallback: function(settings) {
             $('.dataTables_paginate').addClass('p-4');
             $('.dataTables_length').addClass('p-4');
             $('label[for="dt-length-0"]').addClass('hidden');
         }
-    });    
-
+    });  
+   
     // Event listener to redraw table when month or status filter changes
     $('#month-filter, #status-filter').change(function() {
         table.draw();
@@ -113,13 +116,16 @@ $(document).ready(function() {
             {
                 data: null,
                 render: function(data, type, row) {
-                    return '<button class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 edit-row-item" data-id="' + row.id + '"><i class="fa-solid fa-edit"></i></button>';
-                }
-            },
-            {
-                data: null,
-                render: function(data, type, row) {
-                    return '<button id="delete-item-' + row.id + '" class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700 delete-row-item" data-id="' + row.id + '"><i class="fa-solid fa-trash"></i></button>';
+                    return `
+                        <div class="flex gap-2 justify-center">
+                            <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 edit-row-item mx-2" data-id="${row.id}">
+                                <i class="fa-solid fa-edit"></i>
+                            </button>
+                            <button id="delete-item-${row.id}" class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700 delete-row-item mx-2" data-id="${row.id}">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
                 }
             },
         ],
@@ -131,7 +137,7 @@ $(document).ready(function() {
             searchPlaceholder: "Search..."
         },
         columnDefs: [
-            { targets: [5, 6], orderable: false }  // Disable sorting for the edit and delete button columns
+            { targets: [5], orderable: false }  // Disable sorting for the edit and delete button column
         ],
         drawCallback: function(settings) {
             $('.dataTables_paginate').addClass('p-4');
@@ -139,6 +145,7 @@ $(document).ready(function() {
             $('label[for="dt-length-0"]').addClass('hidden');
         }
     });
+
 
     // Event listener to redraw table when filter changes
     $('#item-month-filter').change(function() {
@@ -448,10 +455,13 @@ $(document).ready(function() {
             },
             success: function(result) {
                 table.ajax.reload(); // Refresh the DataTable
+                tableItem.ajax.reload(); // Refresh the DataTable
                 const modal = document.getElementById('editModal'); // Get the edit modal element
                 Swal.fire('Updated!', 'Your record has been updated.', 'success'); // Success message
                 modal.classList.add('hidden');
                 document.getElementById('after-condition').value = '';  //Clear value of after-condition input
+                //reload the table after 3 seconds
+
             },
             error: function(err) {
                 // Check if the response has a JSON body
@@ -485,7 +495,7 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(result) {
-                table.ajax.reload(); // Refresh the DataTable
+                tableItem.ajax.reload(); // Refresh the DataTable
                 const modal = document.getElementById('edit-item-modal'); // Get the edit modal element
                 Swal.fire('Updated!', 'Your record has been updated.', 'success'); // Success message
                 modal.classList.add('hidden');
@@ -507,7 +517,41 @@ $(document).ready(function() {
                 });
             }
         });
-    });    
+    }); 
+    // display of the fetch data on controller which count of returned, pending, and total count of borrow records
+    function borrowCount() {
+        $.ajax({
+            url: '/dashboard/borrowCount',
+            type: 'GET',
+            success: function(data) {
+                $('#returned-borrow-count').text(data.returned);
+                $('#pending-borrow-count').text(data.pending);
+                $('#total-borrow-count').text(data.total);
+            },
+            error: function(err) {
+                console.error(err);
+            }
+        });
+    };
+    borrowCount(); // Call the function on page load
+    setInterval(borrowCount, 5000); // Call the function every 5 seconds
+    // item counter function
+    function itemCount() {
+        $.ajax({
+            url: '/dashboard/itemCount',
+            type: 'GET',
+            success: function(data) {
+                $('#borrowed-item-count').text(data.borrowed);
+                $('#available-item-count').text(data.available);
+                $('#total-item-count').text(data.total);
+            },
+            error: function(err) {
+                console.error(err);
+            }
+        });
+    };
+    itemCount(); // Call the function on page load
+    setInterval(itemCount, 5000); // Call the function every 5 seconds
 });
 // end of docu ready func
 //Table js end

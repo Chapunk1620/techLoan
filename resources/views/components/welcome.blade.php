@@ -198,6 +198,14 @@
                     <input type="text" id="it-receiver" name="it-receiver" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-900">
                 </div>
                 <div class="mb-4">
+                    <label for="item-returner-name" class="block text-sm font-medium text-gray-700">Returner Name</label>
+                    <input type="text" id="item-returner-name" name="item-returner-name" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-900">
+                </div>
+                <div class="mb-4">
+                    <label for="item-returner-id" class="block text-sm font-medium text-gray-700">Returner ID</label>
+                    <input type="text" id="item-returner-id" name="item-returner-id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-900">
+                </div>
+                <div class="mb-4">
                     <label for="after-condition" class="block text-sm font-medium text-gray-900">Item Image</label>
                     <input type="file" id="after-condition" name="after-condition" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500">
                 </div>            
@@ -267,7 +275,11 @@
                 </div>
                 <div class="mb-4">
                     <label for="edit-item-status" class="block text-sm font-medium text-gray-700">Status</label>
-                    <input type="text" id="edit-item-status" name="edit-item-status" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500">
+                    <select id="edit-item-status" name="edit-item-status" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="Available">Available</option>
+                        <option value="Borrowed">Borrowed</option>
+                    </select>
                 </div>
                 <div class="mb-4">
                     <label for="edit-item-arrive" class="block text-sm font-medium text-gray-700">Date Arrive</label>
@@ -298,7 +310,7 @@
         <div class="fixed inset-0 bg-black opacity-50 transition-opacity duration-500 opacity-0" id="backdrop"></div>
         
         <!-- Drawer -->
-        <div class="relative flex flex-col bg-white w-60 lg:w-1/4 h-full shadow-xl overflow-y-auto transition-transform transform duration-500 -translate-x-full" id="drawer">
+        <div class="relative flex flex-col bg-white w-72 lg:w-1/4 h-full shadow-xl overflow-y-auto transition-transform transform duration-500 -translate-x-full" id="drawer">
             <!-- Close Button -->
             <button class="absolute top-4 right-4 text-gray-600 hover:text-gray-800" id="closeDrawerButton">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
@@ -307,9 +319,45 @@
             </button>
             
             <!-- Drawer Content -->
+            {{-- borrow counter --}}
             <div class="p-4">
-                <h2 class="text-xl font-semibold">Statistics</h2>
-                <p class="mt-2 text-gray-600">under development statistics</p>
+                <h2 class="text-xl font-semibold text-center">Borrow Counter</h2>
+                
+                <div class="grid grid-cols-3 grid-rows-1 gap-1">
+                    <div class="bg-white rounded-md shadow-sm text-center p-4">
+                        <p class="border-b border-gray-300">Pending</p>
+                        <p class="text-lg font-semibold" id="pending-borrow-count"></p>
+                    </div>
+                    <div class="bg-white rounded-md shadow-sm text-center p-4">
+                        <p class="border-b border-gray-300">Returned</p>
+                        <p class="text-lg font-semibold" id="returned-borrow-count"></p>
+                    </div>
+                    <div class="bg-white rounded-md shadow-sm text-center p-4">
+                        <p class="border-b border-gray-300">Total</p>
+                        <p class="text-lg font-semibold" id="total-borrow-count"></p>
+                    </div>
+                </div>
+
+            </div>
+            {{-- items counter --}}
+            <div class="p-4">
+                <h2 class="text-xl font-semibold text-center">Items Counter</h2>
+                
+                <div class="grid grid-cols-3 grid-rows-1 gap-1">
+                    <div class="bg-white rounded-md shadow-sm text-center p-4">
+                        <p class="border-b border-gray-300">Available</p>
+                        <p class="text-lg font-semibold" id="available-item-count"></p>
+                    </div>
+                    <div class="bg-white rounded-md shadow-sm text-center p-4">
+                        <p class="border-b border-gray-300">Borrowed</p>
+                        <p class="text-lg font-semibold" id="borrowed-item-count"></p>
+                    </div>
+                    <div class="bg-white rounded-md shadow-sm text-center p-4">
+                        <p class="border-b border-gray-300">Total</p>
+                        <p class="text-lg font-semibold" id="total-item-count"></p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
