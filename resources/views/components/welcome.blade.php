@@ -325,16 +325,16 @@
                 
                 <div class="grid grid-cols-3 grid-rows-1 gap-1">
                     <div class="bg-white rounded-md shadow-sm text-center p-4">
-                        <p class="border-b border-gray-300">Pending</p>
-                        <p class="text-lg font-semibold" id="pending-borrow-count"></p>
+                        <p class="border-b border-gray-300 ">Returned</p>
+                        <p class="text-lg font-semibold bg-green-500 rounded-lg mt-2" id="returned-borrow-count"></p>
                     </div>
                     <div class="bg-white rounded-md shadow-sm text-center p-4">
-                        <p class="border-b border-gray-300">Returned</p>
-                        <p class="text-lg font-semibold" id="returned-borrow-count"></p>
+                        <p class="border-b border-gray-300 ">Pending</p>
+                        <p class="text-lg font-semibold bg-yellow-500 rounded-lg mt-2" id="pending-borrow-count"></p>
                     </div>
                     <div class="bg-white rounded-md shadow-sm text-center p-4">
                         <p class="border-b border-gray-300">Total</p>
-                        <p class="text-lg font-semibold" id="total-borrow-count"></p>
+                        <p class="text-lg font-semibold mt-2" id="total-borrow-count"></p>
                     </div>
                 </div>
 
@@ -346,18 +346,17 @@
                 <div class="grid grid-cols-3 grid-rows-1 gap-1">
                     <div class="bg-white rounded-md shadow-sm text-center p-4">
                         <p class="border-b border-gray-300">Available</p>
-                        <p class="text-lg font-semibold" id="available-item-count"></p>
+                        <p class="text-lg font-semibold bg-green-500 rounded-lg mt-2" id="available-item-count"></p>
                     </div>
                     <div class="bg-white rounded-md shadow-sm text-center p-4">
                         <p class="border-b border-gray-300">Borrowed</p>
-                        <p class="text-lg font-semibold" id="borrowed-item-count"></p>
+                        <p class="text-lg font-semibold bg-yellow-500 rounded-lg mt-2" id="borrowed-item-count"></p>
                     </div>
                     <div class="bg-white rounded-md shadow-sm text-center p-4">
                         <p class="border-b border-gray-300">Total</p>
-                        <p class="text-lg font-semibold" id="total-item-count"></p>
+                        <p class="text-lg font-semibold mt-2" id="total-item-count"></p>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
