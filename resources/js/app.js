@@ -470,6 +470,44 @@ $(document).ready(function() {
             }
         });
     });    
+    //Saving Changes on Item record
+    $('#edit-item-saveChanges').click(function() {
+        var rowId = $('#edit-item-row-id').val(); // Retrieve the row ID
+        var formData = new FormData($('#editFormItem')[0]); // Use FormData to handle file uploads correctly
+    
+        $.ajax({
+            url: '/dashboard/updateItem/' + rowId, // Your update route for the row
+            type: 'POST', // Use POST method with _method input for PUT
+            data: formData,
+            contentType: false, // Important for file uploads
+            processData: false, // Important for file uploads
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(result) {
+                table.ajax.reload(); // Refresh the DataTable
+                const modal = document.getElementById('edit-item-modal'); // Get the edit modal element
+                Swal.fire('Updated!', 'Your record has been updated.', 'success'); // Success message
+                modal.classList.add('hidden');
+                document.getElementById('edit-item-image').value = '';  //Clear value of after-condition input
+            },
+            error: function(err) {
+                // Check if the response has a JSON body
+                let errorMessage = 'Could not update the record.';
+                if (err.responseJSON && err.responseJSON.error) {
+                    // Use the error message returned from the server
+                    errorMessage = err.responseJSON.error;
+                } else if (err.responseJSON && err.responseJSON.errors) {
+                    // If there are validation errors, format a specific message
+                    errorMessage = Object.values(err.responseJSON.errors).map(errorArray => errorArray[0]).join(', ');
+                }
+                Toast.fire({
+                    icon: 'error',
+                    title: errorMessage // Set dynamic error message
+                });
+            }
+        });
+    });    
 });
 // end of docu ready func
 //Table js end

@@ -63,37 +63,34 @@ class Items extends Controller
         ]);
     }
     public function update(Request $request, $id) {
-        // Validate incoming request data
         $validatedData = $request->validate([
-            'status' => 'required|string',
-            'it-receiver' => 'required|string|max:255',
-            'after-condition' => 'mimes:pdf,jpg,jpeg,png|max:100048', // Handle file uploads
+            // 'edit-item-item-key' => 'required|string|max:255',
+            'edit-item-item-type' => 'required|string|max:255',
+            'edit-item-status' => 'required|string|max:255',
+            'edit-item-arrive' => 'required|date',
+            'edit-item-image' => 'nullable|mimes:pdf,jpg,jpeg,png|max:100048',
         ]);
 
         try {
             // Find the loan record and update it
-            $loan = Item::findOrFail($id);            
-            $loan->status = $validatedData['status'];
-            $loan->it_receiver = $validatedData['it-receiver'];
+            $item = Item::findOrFail($id);            
+            $item->status = $validatedData['edit-item-status'];
+            // $item->item_key = $validatedData['edit-item-item-key'];
+            $item->item_type = $validatedData['edit-item-item-type'];
+            $item->date_arrival = $validatedData['edit-item-arrive'];
 
             // Handle the file upload if it exists
-            if ($request->hasFile('after-condition')) {
+            if ($request->hasFile('edit-item-image')) {
                 // Create a unique folder structure
-                $folderName = 'uploads/loan-after-condition/' . $loan->id;
+                $folderName = 'uploads/item-image/' . $item->item_key;
                 
                 // Store the file and save the file path
-                $request->file('after-condition');
-                $file = $request->file('after-condition');
+                $request->file('edit-item-image');
+                $file = $request->file('edit-item-image');
                 $filePath = $file->store($folderName, 'public'); // Store the file using the specified folder
-
-                // Create a new image record associated with the loan
-                $image = new Item;
-                $image->loan_id = $loan->id; // Link to loan
-                $image->file_name = $file->getClientOriginalName(); // Store the original file name
-                $image->file_path = $filePath; // Store path
-                $image->save(); // Save the image record
+                $item->attachment = $filePath; // Store path
             }
-            $loan->save(); // Save the loan after updating
+            $item->save(); // Save the loan after updating
             return response()->json(['success' => 'Record updated successfully.']);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Could not update the record.'], 500);

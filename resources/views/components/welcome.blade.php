@@ -263,15 +263,15 @@
                 </div>
                 <div class="mb-4">
                     <label for="edit-item-item-type" class="block text-sm font-medium text-gray-700">Item Type</label>
-                    <input type="text" id="edit-item-item-type" name="edit-item-item-type" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
+                    <input type="text" id="edit-item-item-type" name="edit-item-item-type" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500">
                 </div>
                 <div class="mb-4">
                     <label for="edit-item-status" class="block text-sm font-medium text-gray-700">Status</label>
-                    <input type="text" id="edit-item-status" name="edit-item-status" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
+                    <input type="text" id="edit-item-status" name="edit-item-status" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500">
                 </div>
                 <div class="mb-4">
                     <label for="edit-item-arrive" class="block text-sm font-medium text-gray-700">Date Arrive</label>
-                    <input type="datetime-local" id="edit-item-arrive" name="edit-item-arrive" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
+                    <input type="datetime-local" id="edit-item-arrive" name="edit-item-arrive" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500">
                 </div>
                 <div class="mb-4">
                     <label for="edit-item-image" class="block text-sm font-medium text-gray-900">Item Image</label>
