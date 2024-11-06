@@ -206,7 +206,7 @@
                     <input type="text" id="item-returner-id" name="item-returner-id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-900">
                 </div>
                 <div class="mb-4">
-                    <label for="after-condition" class="block text-sm font-medium text-gray-900">Item Image</label>
+                    <label for="after-condition" class="block text-sm font-medium text-gray-900">Item Image (after return)</label>
                     <input type="file" id="after-condition" name="after-condition" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500">
                 </div>            
                 <div class="mb-4" id="current-image">
@@ -271,7 +271,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="edit-item-item-type" class="block text-sm font-medium text-gray-700">Item Type</label>
-                    <input type="text" id="edit-item-item-type" name="edit-item-item-type" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500">
+                    <input type="text" id="edit-item-item-type" name="edit-item-item-type" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-700">
                 </div>
                 <div class="mb-4">
                     <label for="edit-item-status" class="block text-sm font-medium text-gray-700">Status</label>
@@ -337,7 +337,6 @@
                         <p class="text-lg font-semibold mt-2" id="total-borrow-count"></p>
                     </div>
                 </div>
-
             </div>
             {{-- items counter --}}
             <div class="p-4">
