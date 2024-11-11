@@ -183,15 +183,15 @@
                     <input type="datetime-local" id="due-date" name="due-date" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
                 </div>
                 <div class="mb-4">
+                    <label for="description" class="block text-sm font-medium text-gray-700">Description(Reason)</label>
+                    <textarea id="description" name="description" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled></textarea>
+                </div>
+                <div class="mb-4">
                     <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
                     <select id="status" name="status" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-900">
                         <option value="Returned">Returned</option>
                         <option value="Pending">Pending</option>
                     </select>
-                </div>
-                <div class="mb-4">
-                    <label for="description" class="block text-sm font-medium text-gray-700">Description(Reason)</label>
-                    <textarea id="description" name="description" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled></textarea>
                 </div>
                 <div class="mb-4">
                     <label for="it-receiver" class="block text-sm font-medium text-gray-700">IT Receiver</label>
@@ -204,6 +204,10 @@
                 <div class="mb-4">
                     <label for="item-returner-id" class="block text-sm font-medium text-gray-700">Returner ID</label>
                     <input type="text" id="item-returner-id" name="item-returner-id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-900">
+                </div>
+                <div class="mb-4">
+                    <label for="item-key-after-return" class="block text-sm font-medium text-gray-700">Item No. (After Return)</label>
+                    <input type="text" id="item-key-after-return" name="item-key-after-return" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-900">
                 </div>
                 <div class="mb-4">
                     <label for="after-condition" class="block text-sm font-medium text-gray-900">Item Image (after return)</label>

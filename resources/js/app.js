@@ -88,6 +88,7 @@ $(document).ready(function() {
             $('.dataTables_paginate').addClass('p-4');
             $('.dataTables_length').addClass('p-4');
             $('label[for="dt-length-0"]').addClass('hidden');
+            $('label[for="dt-length-1"]').addClass('hidden');
         }
     });  
    
