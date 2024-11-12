@@ -7,12 +7,12 @@
             
             <div class="col-start-1 row-start-2 flex flex-col justify-center items-center">
                 <div class="text-gray-600">RETURNED</div>
-                <div class="text-gray-800 bg-green-600 px-16 py-2 rounded-md" id="returned-borrow-count"></div>
+                <div class="text-gray-100 bg-green-600 px-16 py-2 rounded-md" id="returned-borrow-count"></div>
             </div>
             
             <div class="col-start-2 row-start-2 flex flex-col justify-center items-center">
                 <div class="text-gray-600">Pending</div>
-                <div class="text-gray-800 bg-yellow-600 px-16 py-2 rounded-md" id="pending-borrow-count"></div>
+                <div class="text-gray-100 bg-yellow-600 px-16 py-2 rounded-md" id="pending-borrow-count"></div>
             </div>
             
             <div class="col-start-3 row-start-2 flex flex-col justify-center items-center">
@@ -22,11 +22,11 @@
             
             <div class="col-start-5 row-start-2 flex flex-col justify-center items-center">
                 <div class="text-gray-600">Available</div>
-                <div class="text-gray-800 bg-green-600 px-16 py-2 rounded-md" id="available-item-count"></div>
+                <div class="text-gray-100 bg-green-600 px-16 py-2 rounded-md" id="available-item-count"></div>
             </div>
             <div class="col-start-6 row-start-2 flex flex-col justify-center items-center">
                 <div class="text-gray-600">Borrowed</div>
-                <div class="text-gray-800 bg-yellow-600 px-16 py-2 rounded-md" id="borrowed-item-count"></div>
+                <div class="text-gray-100 bg-yellow-600 px-16 py-2 rounded-md" id="borrowed-item-count"></div>
             </div>
             <div class="col-start-7 row-start-2 flex flex-col justify-center items-center">
                 <div class="text-gray-600">Total</div>
