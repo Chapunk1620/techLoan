@@ -65,9 +65,11 @@ $(document).ready(function() {
                             <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 edit-row" data-id="${row.id}">
                                 <i class="fa-solid fa-edit"></i>
                             </button>
+                            <!--
                             <button id="delete-item" class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700 delete-row" data-id="${row.id}">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
+                            -->
                         </div>
                     `;
                 }
@@ -371,6 +373,9 @@ $(document).ready(function() {
                 $('#editModal #status').val(data.loan.status);
                 $('#editModal #description').val(data.loan.description);
                 $('#editModal #it-receiver').val(data.loan.it_receiver);
+                $('#editModal #item-returner-name').val(data.loan.item_returner_name);
+                $('#editModal #item-returner-id').val(data.loan.item_returner_id);
+                $('#editModal #item-key-after-return').val(data.loan.after_item_key);
     
                 // Set the image source, hide div if path is null or empty
                 if (data.loan.image_path && data.loan.image_path.trim() !== 'null' && data.loan.image_path.trim() !== '') {

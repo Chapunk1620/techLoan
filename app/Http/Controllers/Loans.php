@@ -110,8 +110,9 @@ class Loans extends Controller
             // 'description' => 'nullable|string',
             'status' => 'required|string',
             'it-receiver' => 'required|string|max:255',
-            'item-returner-name' => 'nullable|string|max:255',
-            'item-returner-id' => 'nullable|string|max:255',
+            'item-returner-name' => 'required|string|max:255',
+            'item-returner-id' => 'required|string|max:255',
+            'item-key-after-return' => 'required|string|max:255',
             'after-condition' => 'mimes:pdf,jpg,jpeg,png|max:100048', // Handle file uploads
         ]);
 
@@ -141,6 +142,7 @@ class Loans extends Controller
             $loan->item_returner_id = $validatedData['item-returner-id'];
             $loan->status = $validatedData['status'];
             $loan->it_receiver = $validatedData['it-receiver'];
+            $loan->after_item_key = $validatedData['item-key-after-return'];
 
             // Handle the file upload if it exists
             if ($request->hasFile('after-condition')) {

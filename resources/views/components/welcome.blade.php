@@ -1,4 +1,44 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 lg:p-20">
+    <div class="col-span-1 sm:col-span-2 lg:col-span-4 row-span-3 bg-white/70 shadow-md p-4 lg:p-7 rounded-2xl">
+        <div class="grid grid-cols-7 grid-rows-2 gap-4 py-0">
+            <!-- Borrow Status and Items Status -->
+            <div class="col-span-3 flex justify-center items-center text-gray-800">BORROW STATUS</div>
+            <div class="col-span-3 col-start-5 row-start-1 flex justify-center items-center text-gray-800">ITEM STATUS</div>
+            
+            <div class="col-start-1 row-start-2 flex flex-col justify-center items-center">
+                <div class="text-gray-600">RETURNED</div>
+                <div class="text-gray-800 bg-green-600 px-16 py-2 rounded-md" id="returned-borrow-count"></div>
+            </div>
+            
+            <div class="col-start-2 row-start-2 flex flex-col justify-center items-center">
+                <div class="text-gray-600">Pending</div>
+                <div class="text-gray-800 bg-yellow-600 px-16 py-2 rounded-md" id="pending-borrow-count"></div>
+            </div>
+            
+            <div class="col-start-3 row-start-2 flex flex-col justify-center items-center">
+                <div class="text-gray-600">Total</div>
+                <div class="text-gray-800 px-11 py-2" id="total-borrow-count"></div>
+            </div>
+            
+            <div class="col-start-5 row-start-2 flex flex-col justify-center items-center">
+                <div class="text-gray-600">Available</div>
+                <div class="text-gray-800 bg-green-600 px-16 py-2 rounded-md" id="available-item-count"></div>
+            </div>
+            <div class="col-start-6 row-start-2 flex flex-col justify-center items-center">
+                <div class="text-gray-600">Borrowed</div>
+                <div class="text-gray-800 bg-yellow-600 px-16 py-2 rounded-md" id="borrowed-item-count"></div>
+            </div>
+            <div class="col-start-7 row-start-2 flex flex-col justify-center items-center">
+                <div class="text-gray-600">Total</div>
+                <div class="text-gray-800" id="total-item-count"></div>
+            </div>
+            
+            <!-- The vertical line div centered inside its grid position -->
+            <div class="row-span-2 col-start-4 row-start-1 flex justify-center items-center">
+                <div class="h-full w-1 bg-gray-300 rounded-full py-11"></div> <!-- Solid vertical line -->
+            </div>
+        </div>                         
+    </div>
     {{-- table for borrow record --}}
     <div class="col-span-1 sm:col-span-2 lg:col-span-4 row-span-3 bg-white/70 shadow-md p-4 lg:p-7 rounded-2xl">
         <p class="text-center text-2xl py-10">Borrowed Items Record</p>
@@ -210,7 +250,7 @@
                     <input type="text" id="item-key-after-return" name="item-key-after-return" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-900">
                 </div>
                 <div class="mb-4">
-                    <label for="after-condition" class="block text-sm font-medium text-gray-900">Item Image (after return)</label>
+                    <label for="after-condition" class="block text-sm font-medium text-gray-700">Item Image (after return)</label>
                     <input type="file" id="after-condition" name="after-condition" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500">
                 </div>            
                 <div class="mb-4" id="current-image">
@@ -365,7 +405,7 @@
     </div>
     {{-- side drawer end --}}
     {{-- side drawer button open --}}
-    <button id="openDrawerButton" class="transition-transform duration-300 transform hover:scale-105 fixed bottom-7 right-5 w-11 h-11 bg-blue-600 text-white rounded-full  flex items-center justify-center">
+    <button id="openDrawerButton" class="hidden transition-transform duration-300 transform hover:scale-105 fixed bottom-7 right-5 w-11 h-11 bg-blue-600 text-white rounded-full flex items-center justify-center">
     <i class="fa-solid fa-chart-simple"></i>
     </button>
     {{-- errors handler --}}
