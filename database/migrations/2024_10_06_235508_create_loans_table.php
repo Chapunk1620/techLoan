@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('after_condition')->nullable();
             $table->string('after_item_key')->nullable();
             $table->timestamps();
-
             $table->foreign('item_key')->references('item_key')->on('items')->onDelete('cascade');
         });
     }

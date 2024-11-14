@@ -30,8 +30,10 @@ class Items extends Controller
                 'uploads/item-image/' . $item->item_key,
                 $request->file('image-item')->getClientOriginalName(),
                 'public' // Specify the 'public' disk here
+             // Get the final path of the file
             );
-            $item->attachment = $path;
+            $finalPath = '/storage/' . $path;
+            $item->attachment = $finalPath;
         }
 
         $item->save();
@@ -66,7 +68,6 @@ class Items extends Controller
         $validatedData = $request->validate([
             // 'edit-item-item-key' => 'required|string|max:255',
             'edit-item-item-type' => 'required|string|max:255',
-            'edit-item-status' => 'required|string|max:255',
             'edit-item-arrive' => 'required|date',
             'edit-item-image' => 'nullable|mimes:pdf,jpg,jpeg,png|max:100048',
         ]);
@@ -74,7 +75,6 @@ class Items extends Controller
         try {
             // Find the loan record and update it
             $item = Item::findOrFail($id);            
-            $item->status = $validatedData['edit-item-status'];
             // $item->item_key = $validatedData['edit-item-item-key'];
             $item->item_type = $validatedData['edit-item-item-type'];
             $item->date_arrival = $validatedData['edit-item-arrive'];
@@ -88,7 +88,7 @@ class Items extends Controller
                 $request->file('edit-item-image');
                 $file = $request->file('edit-item-image');
                 $filePath = $file->store($folderName, 'public'); // Store the file using the specified folder
-                $item->attachment = $filePath; // Store path
+                $item->attachment = '/storage/' . $filePath; // Store path
             }
             $item->save(); // Save the loan after updating
             return response()->json(['success' => 'Record updated successfully.']);

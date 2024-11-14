@@ -158,7 +158,7 @@ class Loans extends Controller
                 $image = new Image;
                 $image->loan_id = $loan->id; // Link to loan
                 $image->file_name = $file->getClientOriginalName(); // Store the original file name
-                $image->file_path = $filePath; // Store path
+                $image->file_path = '/storage/' . $filePath; // Store path
                 $image->save(); // Save the image record
             }
             $loan->save(); // Save the loan after updating

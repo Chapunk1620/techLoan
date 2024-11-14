@@ -368,7 +368,7 @@ $(document).ready(function() {
                 // Populate the form
                 $('#editModal #row-id').val(data.loan.id);
                 $('#editModal #borrower-id').val(data.loan.id_borrower);
-                $('#editModal #item-key').val(data.loan.item_key);
+                $('#editModal #item-key-update').val(data.loan.item_key);
                 $('#editModal #due-date').val(data.loan.due_date);
                 $('#editModal #status').val(data.loan.status);
                 $('#editModal #description').val(data.loan.description);
@@ -449,42 +449,61 @@ $(document).ready(function() {
     $('#saveChanges').click(function() {
         var rowId = $('#row-id').val(); // Retrieve the row ID
         var formData = new FormData($('#editForm')[0]); // Use FormData to handle file uploads correctly
-    
-        $.ajax({
-            url: '/dashboard/update/' + rowId, // Your update route for the row
-            type: 'POST', // Use POST method with _method input for PUT
-            data: formData,
-            contentType: false, // Important for file uploads
-            processData: false, // Important for file uploads
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(result) {
-                table.ajax.reload(); // Refresh the DataTable
-                tableItem.ajax.reload(); // Refresh the DataTable
-                const modal = document.getElementById('editModal'); // Get the edit modal element
-                Swal.fire('Updated!', 'Your record has been updated.', 'success'); // Success message
-                modal.classList.add('hidden');
-                document.getElementById('after-condition').value = '';  //Clear value of after-condition input
-                //reload the table after 3 seconds
+        var updateItemNo = document.getElementById('item-key-update').value;
+        var returnUpdateItemNo = document.getElementById('item-key-after-return').value;
 
-            },
-            error: function(err) {
-                // Check if the response has a JSON body
-                let errorMessage = 'Could not update the record.';
-                if (err.responseJSON && err.responseJSON.error) {
-                    // Use the error message returned from the server
-                    errorMessage = err.responseJSON.error;
-                } else if (err.responseJSON && err.responseJSON.errors) {
-                    // If there are validation errors, format a specific message
-                    errorMessage = Object.values(err.responseJSON.errors).map(errorArray => errorArray[0]).join(', ');
+        // condition checking of updateItemNo and returnUpdateItemNo is the same or not
+        if (updateItemNo === returnUpdateItemNo) {
+            $.ajax({
+                url: '/dashboard/update/' + rowId, // Your update route for the row
+                type: 'POST', // Use POST method with _method input for PUT
+                data: formData,
+                contentType: false, // Important for file uploads
+                processData: false, // Important for file uploads
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(result) {
+                    table.ajax.reload(); // Refresh the DataTable
+                    tableItem.ajax.reload(); // Refresh the DataTable
+                    const modal = document.getElementById('editModal'); // Get the edit modal element
+                    Swal.fire('Updated!', 'Your record has been updated.', 'success'); // Success message
+                    modal.classList.add('hidden');
+                    document.getElementById('after-condition').value = '';  //Clear value of after-condition input
+                    //reload the table after 3 seconds
+    
+                },
+                error: function(err) {
+                    // Check if the response has a JSON body
+                    let errorMessage = 'Could not update the record.';
+                    if (err.responseJSON && err.responseJSON.error) {
+                        // Use the error message returned from the server
+                        errorMessage = err.responseJSON.error;
+                    } else if (err.responseJSON && err.responseJSON.errors) {
+                        // If there are validation errors, format a specific message
+                        errorMessage = Object.values(err.responseJSON.errors).map(errorArray => errorArray[0]).join(', ');
+                    }
+                    Toast.fire({
+                        icon: 'error',
+                        title: errorMessage // Set dynamic error message
+                    });
                 }
-                Toast.fire({
-                    icon: 'error',
-                    title: errorMessage // Set dynamic error message
-                });
-            }
-        });
+            });
+        } 
+        else {
+            Toast.fire({
+                icon: 'error',
+                title: 'Item No and Item No. (After Return) should be same.',
+                timer: 5000,
+                position: 'top-end',
+                showConfirmButton: false,
+                toast: true,
+            });
+            // console.log the item no and item no after return
+
+            console.log(updateItemNo);
+            console.log(returnUpdateItemNo);
+        }
     });    
     //Saving Changes on Item record
     $('#edit-item-saveChanges').click(function() {
