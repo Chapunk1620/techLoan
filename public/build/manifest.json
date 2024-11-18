@@ -37,12 +37,13 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-BjgCQZ6G.js",
+    "file": "assets/app-Cf2BR1WJ.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-CKO3ydbn.css"
+      "assets/app-CDmm3iRx.css",
+      "assets/app-FdsOxVYq.css"
     ],
     "assets": [
       "assets/fa-brands-400-O7nZalfM.woff2",
