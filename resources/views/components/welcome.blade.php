@@ -41,7 +41,7 @@
     </div>
     {{-- table for borrow record --}}
     <div class="col-span-1 sm:col-span-2 lg:col-span-4 row-span-3 bg-white/70 shadow-md p-4 lg:p-7 rounded-2xl">
-        <p class="text-center text-2xl py-10">Borrowed Items Record</p>
+        <p class="text-center text-2xl py-1">Borrowed Items Record</p>
         <!-- Filters -->
         <p>Filters:</p>
         <div class="flex items-center justify-between mb-4">
@@ -107,7 +107,7 @@
     {{-- table for borrow record end--}}
     {{-- Table for items --}}
     <div class="col-span-1 sm:col-span-2 lg:col-span-4 row-span-3 bg-white/70 shadow-md p-4 lg:p-7 rounded-2xl">
-        <p class="text-center text-2xl py-10">Items Record</p>
+        <p class="text-center text-2xl py-1">Items Record</p>
         <!-- Filters -->
         <p>Filters:</p>
         <div class="flex items-center justify-between mb-4">
@@ -215,13 +215,8 @@
                     <input type="text" id="borrower-id" name="borrower-id" class=" hidden mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
                 </div>
                 <div class="mb-4">
-<<<<<<< HEAD
-                    <label for="item-key" class="block text-sm font-medium text-gray-700">Item No.</label>
-                    <input type="text" id="item-key-update" name="item-key" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
-=======
                     <label for="item-key" class=" hidden block text-sm font-medium text-gray-700">Item No.</label>
                     <input type="text" id="item-key-update" name="item-key" class=" hidden mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
->>>>>>> 530b4ba755d208b125ecce5873237e116c49244b
                 </div>
                 <div class="mb-4">
                     <label for="due-date" class=" hidden block text-sm font-medium text-gray-700">Due Date</label>
