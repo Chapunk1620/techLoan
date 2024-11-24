@@ -1,5 +1,5 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 lg:p-20">
-    <div class="col-span-1 sm:col-span-2 lg:col-span-4 row-span-3 bg-white/70 shadow-md p-4 lg:p-7 rounded-2xl">
+    <div class="col-span-1 sm:col-span-2 lg:col-span-4 row-span-3 bg-white/70 shadow-md p-4 lg:p-7 rounded-2xl mt-[-70px]">
         <div class="grid grid-cols-7 grid-rows-2 gap-4 py-0">
             <!-- Borrow Status and Items Status -->
             <div class="col-span-3 flex justify-center items-center text-gray-800">BORROW STATUS</div>
@@ -205,26 +205,26 @@
     <!-- Edit Modal -->
     <div class="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 hidden" id="editModal">
         <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg mx-4 md:max-w-md h-[80%] overflow-y-auto">
-            <h2 class="text-lg font-semibold mb-4">Edit Record</h2>
+            <h2 class="text-lg font-semibold mb-4">Update Record</h2>
             <form id="editForm" enctype="multipart/form-data" method="POST">
                 @csrf
                 @method('PUT')
                 <input type="hidden" id="row-id" name="row-id">
                 <div class="mb-4">
-                    <label for="borrower-id" class="block text-sm font-medium text-gray-700">Borrower ID</label>
-                    <input type="text" id="borrower-id" name="borrower-id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
+                    <label for="borrower-id" class=" hidden block text-sm font-medium text-gray-700">Borrower ID</label>
+                    <input type="text" id="borrower-id" name="borrower-id" class=" hidden mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
                 </div>
                 <div class="mb-4">
-                    <label for="item-key" class="block text-sm font-medium text-gray-700">Item No.</label>
-                    <input type="text" id="item-key-update" name="item-key" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
+                    <label for="item-key" class=" hidden block text-sm font-medium text-gray-700">Item No.</label>
+                    <input type="text" id="item-key-update" name="item-key" class=" hidden mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
                 </div>
                 <div class="mb-4">
-                    <label for="due-date" class="block text-sm font-medium text-gray-700">Due Date</label>
-                    <input type="datetime-local" id="due-date" name="due-date" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
+                    <label for="due-date" class=" hidden block text-sm font-medium text-gray-700">Due Date</label>
+                    <input type="datetime-local" id="due-date" name="due-date" class=" hidden mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
                 </div>
                 <div class="mb-4">
-                    <label for="description" class="block text-sm font-medium text-gray-700">Description(Reason)</label>
-                    <textarea id="description" name="description" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled></textarea>
+                    <label for="description" class=" hidden block text-sm font-medium text-gray-700">Description(Reason)</label>
+                    <textarea id="description" name="description" class=" hidden mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled></textarea>
                 </div>
                 <div class="mb-4">
                     <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
