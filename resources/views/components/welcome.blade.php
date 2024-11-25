@@ -215,8 +215,8 @@
                     <input type="text" id="borrower-id" name="borrower-id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
                 </div>
                 <div class="mb-4">
-                    <label for="item-key" class="block text-sm font-medium text-gray-700">Item Key</label>
-                    <input type="text" id="item-key" name="item-key" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
+                    <label for="item-key" class="block text-sm font-medium text-gray-700">Item No.</label>
+                    <input type="text" id="item-key-update" name="item-key" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
                 </div>
                 <div class="mb-4">
                     <label for="due-date" class="block text-sm font-medium text-gray-700">Due Date</label>
@@ -319,12 +319,16 @@
                 </div>
                 <div class="mb-4">
                     <label for="edit-item-status" class="block text-sm font-medium text-gray-700">Status</label>
-                    <select id="edit-item-status" name="edit-item-status" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                    <input type="text" id="edit-item-status" name="edit-item-status" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-700" disabled>
+                </div>
+                {{-- <div class="mb-4">
+                    <label for="edit-item-status" class="block text-sm font-medium text-gray-700">Status</label>
+                    <select id="edit-item-status" name="edit-item-status" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" disabled>
                         <option value="" disabled selected>Select an option</option>
                         <option value="Available">Available</option>
                         <option value="Borrowed">Borrowed</option>
                     </select>
-                </div>
+                </div> --}}
                 <div class="mb-4">
                     <label for="edit-item-arrive" class="block text-sm font-medium text-gray-700">Date Arrive</label>
                     <input type="datetime-local" id="edit-item-arrive" name="edit-item-arrive" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500">
