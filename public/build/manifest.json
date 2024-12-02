@@ -32,30 +32,18 @@
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2"
   },
   "resources/css/app.css": {
-<<<<<<< HEAD
-    "file": "assets/app-BsprGvrw.css",
-=======
-    "file": "assets/app-BJKfOIoK.css",
->>>>>>> 6343064b39ea9c7f36e6889786926617551e1c6d
+    "file": "assets/app-BMtUGcNF.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-<<<<<<< HEAD
-    "file": "assets/app-D95LH6T_.js",
-=======
-    "file": "assets/app-Cnd_0Gc1.js",
->>>>>>> 6343064b39ea9c7f36e6889786926617551e1c6d
+    "file": "assets/app-DHCwCNud.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-<<<<<<< HEAD
       "assets/app-CDmm3iRx.css",
-      "assets/app-BsprGvrw.css"
-=======
-      "assets/app-C-R4DC53.css"
->>>>>>> 6343064b39ea9c7f36e6889786926617551e1c6d
+      "assets/app-BMtUGcNF.css"
     ],
     "assets": [
       "assets/fa-brands-400-O7nZalfM.woff2",
