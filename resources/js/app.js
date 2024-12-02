@@ -124,9 +124,11 @@ $(document).ready(function() {
                             <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 edit-row-item mx-2" data-id="${row.id}">
                                 <i class="fa-solid fa-edit"></i>
                             </button>
+                            <!--
                             <button id="delete-item-${row.id}" class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700 delete-row-item mx-2" data-id="${row.id}">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
+                            -->
                         </div>
                     `;
                 }
