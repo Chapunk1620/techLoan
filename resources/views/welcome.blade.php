@@ -57,13 +57,9 @@
                                 <p class="mt-10 text-justify">In this system, employees can borrow items such as laptops, projectors, or other IT equipment from the IT department.</p>
                             </div>
                             <div class="col-span-1 md:col-span-2 md:col-start-4 row-span-2 bg-white/50 p-10 rounded-2xl shadow-sm">
-<<<<<<< HEAD
-                                <img src="{{ asset('storage/images/LOGO.png') }}" alt="" class="justify-self-center">
-=======
                                 <div class="flex justify-center">
                                     <img src="{{ asset('/storage/images/LOGO.png') }}" alt="" class="size-24">
                                 </div>
->>>>>>> 530b4ba755d208b125ecce5873237e116c49244b
                                 <p class="mt-10 text-justify">Hayakawa Electronics (Phils.) Corp. (HEPC) was incorporated and registered with the Philippine Securities and Exchange Commission (SEC) on March 14, 1990. It is a wholly owned subsidiary of Hayakawa Densen Kogyo Co., Ltd. (the parent company), a company incorporated in Japan. HEPC is presently engaged in the manufacture, assembly, and fabrication of wire harness for various electronic and electrical appliances.</p>
                             </div>
                             <div class="col-span-1 md:col-span-2 md:col-start-4 row-span-2 row-start-3 bg-white/50 p-10 rounded-2xl shadow-sm">
