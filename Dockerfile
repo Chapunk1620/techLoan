@@ -43,11 +43,14 @@ RUN chown -R www-data:www-data /var/www \
 # Fix permissions for /tmp directory
 RUN chmod -R 777 /tmp
 
+#delete public/storage folder
+RUN rm -rf /var/www/public/storage
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 
 # Command to run after container starts
 CMD bash -c "php artisan migrate --force && \
+    rm -rf /var/www/public/storage &&  \
     php artisan storage:link && \
     npm install && \
     npm run build && \
