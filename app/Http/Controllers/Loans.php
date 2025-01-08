@@ -22,21 +22,21 @@ class Loans extends Controller
     public function json(Request $request) {
         // Get base query
         $query = Loan::query();
-    
+
         // Apply month filter if selected
         if ($request->has('month') && !empty($request->month)) {
             $query->whereMonth('created_at', $request->month); // Assuming 'created_at' is the field you want to filter by
         }
-    
+
         // Apply status filter if selected
         if ($request->has('status') && !empty($request->status)) {
             $query->where('status', $request->status);
         }
-    
+
         // Return data to DataTables with server-side processing
         return DataTables::of($query)
             ->make(true);
-    }       
+    }
     public function getItemsData(Request $request)
     {
         if ($request->ajax()) {
@@ -119,19 +119,19 @@ class Loans extends Controller
         try {
             // Find the loan record and update it
             $loan = Loan::findOrFail($id);
-            // Uncomment and set these fields as required 
+            // Uncomment and set these fields as required
             // if needed for your application logic
             // $loan->id_borrower = $validatedData['borrower-id'];
             // $loan->item_key = $validatedData['item-key'];
             // $loan->due_date = $validatedData['due-date'];
             // $loan->description = $validatedData['description'];
-            
+
             // if the value of status is 'Returned' update the status of the item in the items table as 'Available' then if status is 'Pending' update the status of the item in the items table as 'Borrowed'
             if ($validatedData['status'] == 'Returned') {
                 $item = Item::where('item_key', $loan->item_key)->first();
                 $item->status = 'Available';
                 $item->save();
-            } 
+            }
             else if ($validatedData['status'] == 'Pending') {
                 $item = Item::where('item_key', $loan->item_key)->first();
                 $item->status = 'Borrowed';
@@ -148,7 +148,7 @@ class Loans extends Controller
             if ($request->hasFile('after-condition')) {
                 // Create a unique folder structure
                 $folderName = 'uploads/loan-after-condition/' . $loan->id;
-                
+
                 // Store the file and save the file path
                 $request->file('after-condition');
                 $file = $request->file('after-condition');

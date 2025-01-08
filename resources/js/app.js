@@ -52,6 +52,7 @@ $(document).ready(function() {
         columns: [
             { data: "id" },
             { data: "id_borrower" },
+            { data: "borrower_name" },
             { data: "item_key" },
             { data: "status" },
             { data: "created_at" },
@@ -84,7 +85,7 @@ $(document).ready(function() {
         },
         columnDefs: [
             { targets: [7], orderable: false },  // Disable sorting for the delete button column
-            
+
         ],
         drawCallback: function(settings) {
             $('.dataTables_paginate').addClass('p-4');
@@ -92,8 +93,8 @@ $(document).ready(function() {
             $('label[for="dt-length-0"]').addClass('hidden');
             $('label[for="dt-length-1"]').addClass('hidden');
         }
-    });  
-   
+    });
+
     // Event listener to redraw table when month or status filter changes
     $('#month-filter, #status-filter').change(function() {
         table.draw();
@@ -156,7 +157,7 @@ $(document).ready(function() {
     $('#item-month-filter').change(function() {
         tableItem.draw();
     });
-    
+
     // Trigger filtering when month or status is changed
     $('#month-filter, #status-filter').on('change', function() {
         table.ajax.reload(); // Reload table data based on new filter values
@@ -193,7 +194,7 @@ $(document).ready(function() {
     document.getElementById('closeModals').onclick = function() {
         const editModal = document.getElementById('editModal');
         const modalContent = document.getElementById('modalContent');
-        
+
         modalContent.classList.remove('scale-100', 'opacity-100');
         modalContent.classList.add('scale-95', 'opacity-0');
 
@@ -205,7 +206,7 @@ $(document).ready(function() {
     document.getElementById('edit-item-closeModals').onclick = function() {
         const editModal = document.getElementById('edit-item-modal');
         const modalContent = document.getElementById('modalContent');
-        
+
         modalContent.classList.remove('scale-100', 'opacity-100');
         modalContent.classList.add('scale-95', 'opacity-0');
 
@@ -236,7 +237,7 @@ $(document).ready(function() {
                 modalItem.classList.add('hidden');
             }, 300); // Match this time with the duration of the CSS transition
         }
-        
+
         // Close the edit modal when clicking outside of it
         const editModal = document.getElementById('editModal');
         const editModalContent = document.getElementById('modalContent'); // Ensure it's the correct content ID
@@ -247,7 +248,7 @@ $(document).ready(function() {
                 editModal.classList.add('hidden');
             }, 300); // Match this time with the duration of the CSS transition
         }
-        // Close modal for add borrow 
+        // Close modal for add borrow
         const modal = document.getElementById('myModal');
         const modalContent = document.getElementById('modalContent');
         if (event.target === modal) {
@@ -268,7 +269,7 @@ $(document).ready(function() {
             }, 300); // Match this time with the duration of the CSS transition
         }
     }
-    // create a function for displaying a console log 
+    // create a function for displaying a console log
     //ajax include csrf token
     $(document).ready(function() {
         // Set up the CSRF token for all AJAX requests
@@ -317,7 +318,7 @@ $(document).ready(function() {
                 });
             }
         });
-    }); 
+    });
     // Delete button functionality for items-table
     $(document).on('click', '.delete-row-item',function() {
         var itemId = $(this).data('id');
@@ -360,13 +361,13 @@ $(document).ready(function() {
     // borrow edit modal fetch data to display on modal
     $(document).on('click', '.edit-row', function() {
         var rowId = $(this).data('id');
-    
+
         $.ajax({
             url: '/dashboard/edit/' + rowId,
             type: 'GET',
             success: function(data) {
                 console.log(data.image_path); // Log the path for debugging
-    
+
                 // Populate the form
                 $('#editModal #row-id').val(data.loan.id);
                 $('#editModal #borrower-id').val(data.loan.id_borrower);
@@ -378,7 +379,7 @@ $(document).ready(function() {
                 $('#editModal #item-returner-name').val(data.loan.item_returner_name);
                 $('#editModal #item-returner-id').val(data.loan.item_returner_id);
                 $('#editModal #item-key-after-return').val(data.loan.after_item_key);
-    
+
                 // Set the image source, hide div if path is null or empty
                 if (data.loan.image_path && data.loan.image_path.trim() !== 'null' && data.loan.image_path.trim() !== '') {
                     $('#current-image').show();
@@ -386,7 +387,7 @@ $(document).ready(function() {
                 } else {
                     $('#current-image').hide();
                 }
-    
+
                 // Show the modal
                 const modal = document.getElementById('editModal');
                 modal.classList.remove('hidden');
@@ -403,7 +404,7 @@ $(document).ready(function() {
     // item edit modal fetch data to display on modal
     $(document).on('click', '.edit-row-item', function() {
         var rowId = $(this).data('id');
-    
+
         $.ajax({
             url: '/dashboard/editItem/' + rowId,
             type: 'GET',
@@ -414,7 +415,7 @@ $(document).ready(function() {
                 $('#edit-item-modal #edit-item-item-type').val(data.item.item_type);
                 $('#edit-item-modal #edit-item-status').val(data.item.status);
                 $('#edit-item-modal #edit-item-arrive').val(data.item.date_arrival);
-    
+
                 // Set the image source, hide div if path is null or empty
                 if (data.item.latestImage && data.item.latestImage.trim() !== 'null' && data.item.latestImage.trim() !== '') {
                     $('#current-image-item').show();
@@ -434,8 +435,8 @@ $(document).ready(function() {
                 alert('Error fetching data for editing.');
             }
         });
-    });    
-    //toast 
+    });
+    //toast
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -473,7 +474,7 @@ $(document).ready(function() {
                     modal.classList.add('hidden');
                     document.getElementById('after-condition').value = '';  //Clear value of after-condition input
                     //reload the table after 3 seconds
-    
+
                 },
                 error: function(err) {
                     // Check if the response has a JSON body
@@ -491,7 +492,7 @@ $(document).ready(function() {
                     });
                 }
             });
-        } 
+        }
         else {
             Toast.fire({
                 icon: 'error',
@@ -506,12 +507,12 @@ $(document).ready(function() {
             console.log(updateItemNo);
             console.log(returnUpdateItemNo);
         }
-    });    
+    });
     //Saving Changes on Item record
     $('#edit-item-saveChanges').click(function() {
         var rowId = $('#edit-item-row-id').val(); // Retrieve the row ID
         var formData = new FormData($('#editFormItem')[0]); // Use FormData to handle file uploads correctly
-    
+
         $.ajax({
             url: '/dashboard/updateItem/' + rowId, // Your update route for the row
             type: 'POST', // Use POST method with _method input for PUT
@@ -544,7 +545,7 @@ $(document).ready(function() {
                 });
             }
         });
-    }); 
+    });
     // display of the fetch data on controller which count of returned, pending, and total count of borrow records
     function borrowCount() {
         $.ajax({

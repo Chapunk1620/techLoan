@@ -4,22 +4,22 @@
             <!-- Borrow Status and Items Status -->
             <div class="col-span-3 flex justify-center items-center text-gray-800">BORROW STATUS</div>
             <div class="col-span-3 col-start-5 row-start-1 flex justify-center items-center text-gray-800">ITEM STATUS</div>
-            
+
             <div class="col-start-1 row-start-2 flex flex-col justify-center items-center">
                 <div class="text-gray-600">RETURNED</div>
                 <div class="text-gray-100 bg-green-600 px-16 py-2 rounded-md" id="returned-borrow-count"></div>
             </div>
-            
+
             <div class="col-start-2 row-start-2 flex flex-col justify-center items-center">
                 <div class="text-gray-600">Pending</div>
                 <div class="text-gray-100 bg-yellow-600 px-16 py-2 rounded-md" id="pending-borrow-count"></div>
             </div>
-            
+
             <div class="col-start-3 row-start-2 flex flex-col justify-center items-center">
                 <div class="text-gray-600">Total</div>
                 <div class="text-gray-800 px-11 py-2" id="total-borrow-count"></div>
             </div>
-            
+
             <div class="col-start-5 row-start-2 flex flex-col justify-center items-center">
                 <div class="text-gray-600">Available</div>
                 <div class="text-gray-100 bg-green-600 px-16 py-2 rounded-md" id="available-item-count"></div>
@@ -32,12 +32,12 @@
                 <div class="text-gray-600">Total</div>
                 <div class="text-gray-800" id="total-item-count"></div>
             </div>
-            
+
             <!-- The vertical line div centered inside its grid position -->
             <div class="row-span-2 col-start-4 row-start-1 flex justify-center items-center">
                 <div class="h-full w-1 bg-gray-300 rounded-full py-11"></div> <!-- Solid vertical line -->
             </div>
-        </div>                         
+        </div>
     </div>
     {{-- table for borrow record --}}
     <div class="col-span-1 sm:col-span-2 lg:col-span-4 row-span-3 bg-white/70 shadow-md p-4 lg:p-7 rounded-2xl">
@@ -81,6 +81,7 @@
                     <tr>
                         <th class="px-4 py-2">ID</th>
                         <th class="px-4 py-2">Borrower ID</th>
+                        <th class="px-4 py-2">Borrower Name</th>
                         <th class="px-4 py-2">Item No.</th>
                         <th class="px-4 py-2">Status</th>
                         <th class="px-4 py-2">Create Date</th>
@@ -93,6 +94,7 @@
                     <tr>
                         <th class="px-4 py-2">ID</th>
                         <th class="px-4 py-2">Borrower ID</th>
+                        <th class="px-4 py-2">Borrower Name</th>
                         <th class="px-4 py-2">Item Key</th>
                         <th class="px-4 py-2">Status</th>
                         <th class="px-4 py-2">Create Date</th>
@@ -103,7 +105,7 @@
                 </tfoot>
             </table>
         </div>
-    </div>      
+    </div>
     {{-- table for borrow record end--}}
     {{-- Table for items --}}
     <div class="col-span-1 sm:col-span-2 lg:col-span-4 row-span-3 bg-white/70 shadow-md p-4 lg:p-7 rounded-2xl">
@@ -126,7 +128,7 @@
                     <option value="10">October</option>
                     <option value="11">November</option>
                     <option value="12">December</option>
-                </select>                
+                </select>
             </div>
             <!-- Button to open the modal -->
             <div class="bg-blue-400 text-white rounded-md px-3 hover:bg-custom-blues hover:-translate-y-1 transition-transform duration-300 transform">
@@ -159,7 +161,7 @@
                 </tfoot>
             </table>
         </div>
-    </div>    
+    </div>
     {{-- Table for items end --}}
     <!-- Modal -->
     <div id="myModal" class="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 transition-opacity hidden">
@@ -252,11 +254,11 @@
                 <div class="mb-4">
                     <label for="after-condition" class="block text-sm font-medium text-gray-700">Item Image (after return)</label>
                     <input type="file" id="after-condition" name="after-condition" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500">
-                </div>            
+                </div>
                 <div class="mb-4" id="current-image">
                     <label for="current-condition" class="block text-sm font-medium text-gray-900">Current Image</label>
                     <img alt="Current Image" id="current-condition">
-                </div>                        
+                </div>
                 <div class="flex gap-2">
                     <button type="button" class="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5" id="saveChanges">Save Changes</button>
                     <button type="button" id="closeModals" class="text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 font-medium rounded-lg px-5 py-2.5">Close</button>
@@ -356,7 +358,7 @@
     <div class="fixed inset-0 flex z-50 hidden" id="drawer-wrapper">
         <!-- Backdrop -->
         <div class="fixed inset-0 bg-black opacity-50 transition-opacity duration-500 opacity-0" id="backdrop"></div>
-        
+
         <!-- Drawer -->
         <div class="relative flex flex-col bg-white w-72 lg:w-1/4 h-full shadow-xl overflow-y-auto transition-transform transform duration-500 -translate-x-full" id="drawer">
             <!-- Close Button -->
@@ -365,12 +367,12 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
-            
+
             <!-- Drawer Content -->
             {{-- borrow counter --}}
             <div class="p-4">
                 <h2 class="text-xl font-semibold text-center">Borrow Counter</h2>
-                
+
                 <div class="grid grid-cols-3 grid-rows-1 gap-1">
                     <div class="bg-white rounded-md shadow-sm text-center p-4">
                         <p class="border-b border-gray-300 ">Returned</p>
@@ -389,7 +391,7 @@
             {{-- items counter --}}
             <div class="p-4">
                 <h2 class="text-xl font-semibold text-center">Items Counter</h2>
-                
+
                 <div class="grid grid-cols-3 grid-rows-1 gap-1">
                     <div class="bg-white rounded-md shadow-sm text-center p-4">
                         <p class="border-b border-gray-300">Available</p>
