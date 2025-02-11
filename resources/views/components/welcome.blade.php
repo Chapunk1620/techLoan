@@ -213,20 +213,20 @@
                 @method('PUT')
                 <input type="hidden" id="row-id" name="row-id">
                 <div class="mb-4">
-                    <label for="borrower-id" class=" hidden block text-sm font-medium text-gray-700">Borrower ID</label>
-                    <input type="text" id="borrower-id" name="borrower-id" class=" hidden mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
+                    <label for="borrower-id" class="block text-sm font-medium text-gray-700">Borrower ID</label>
+                    <input type="text" id="borrower-id" name="borrower-id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
                 </div>
                 <div class="mb-4">
-                    <label for="item-key" class=" hidden block text-sm font-medium text-gray-700">Item No.</label>
-                    <input type="text" id="item-key-update" name="item-key" class=" hidden mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
+                    <label for="item-key" class=" block text-sm font-medium text-gray-700">Item No.</label>
+                    <input type="text" id="item-key-update" name="item-key" class=" mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
                 </div>
                 <div class="mb-4">
                     <label for="due-date" class=" hidden block text-sm font-medium text-gray-700">Due Date</label>
                     <input type="datetime-local" id="due-date" name="due-date" class=" hidden mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled>
                 </div>
                 <div class="mb-4">
-                    <label for="description" class=" hidden block text-sm font-medium text-gray-700">Description(Reason)</label>
-                    <textarea id="description" name="description" class=" hidden mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled></textarea>
+                    <label for="description" class="block text-sm font-medium text-gray-700">Description(Reason)</label>
+                    <textarea id="description" name="description" class=" mt-1 block w-full p-2 border border-gray-300 rounded-md text-gray-500" disabled></textarea>
                 </div>
                 <div class="mb-4">
                     <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
